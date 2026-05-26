@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Copy, Check, Download, Share2 } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
@@ -14,6 +15,11 @@ interface ShareModalProps {
 
 export default function ShareModal({ isOpen, onClose, url, title }: ShareModalProps) {
   const [copied, setCopied] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleCopy = async () => {
     try {
@@ -67,7 +73,7 @@ export default function ShareModal({ isOpen, onClose, url, title }: ShareModalPr
     img.src = "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svgData)));
   };
 
-  return (
+  const modalContent = (
     <AnimatePresence>
       {isOpen && (
         <>
@@ -163,4 +169,8 @@ export default function ShareModal({ isOpen, onClose, url, title }: ShareModalPr
       )}
     </AnimatePresence>
   );
+
+  if (!mounted) return null;
+
+  return createPortal(modalContent, document.body);
 }
