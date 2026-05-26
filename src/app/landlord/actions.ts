@@ -21,9 +21,43 @@ export async function createProperty(formData: FormData) {
   const city = formData.get("city") as string;
   const state = formData.get("state") as string;
   
-  // Dummy coordinates for now, usually you'd geocode the address
-  const lat = 27.7172 + (Math.random() - 0.5) * 0.05;
-  const lng = 85.3240 + (Math.random() - 0.5) * 0.05;
+  const latStr = formData.get("lat") as string;
+  const lngStr = formData.get("lng") as string;
+  const lat = latStr ? parseFloat(latStr) : 27.7172;
+  const lng = lngStr ? parseFloat(lngStr) : 85.3240;
+
+  const contactPhone = (formData.get("contactPhone") as string) || null;
+  const contactEmail = (formData.get("contactEmail") as string) || null;
+
+  // Unit fields
+  const type = formData.get("type") as RoomType;
+  const price = parseInt(formData.get("price") as string, 10);
+  
+  const furnished = formData.get("furnished") === "on";
+  const attachedBath = formData.get("attachedBath") === "on";
+  const wifi = formData.get("wifi") === "on";
+  const parking = formData.get("parking") === "on";
+  const petFriendly = formData.get("petFriendly") === "on";
+  const balcony = formData.get("balcony") === "on";
+  const kitchenAccess = formData.get("kitchenAccess") === "on";
+  const waterIncluded = formData.get("waterIncluded") === "on";
+  const powerIncluded = formData.get("powerIncluded") === "on";
+
+  const bachelorFriendly = formData.get("bachelorFriendly") === "on";
+  const familyFriendly = formData.get("familyFriendly") === "on";
+  const boysOnly = formData.get("boysOnly") === "on";
+  const girlsOnly = formData.get("girlsOnly") === "on";
+  const smokingAllowed = formData.get("smokingAllowed") === "on";
+
+  const mediaUrlsStr = formData.get("mediaUrls") as string;
+  let mediaUrls: string[] = [];
+  if (mediaUrlsStr) {
+    try {
+      mediaUrls = JSON.parse(mediaUrlsStr);
+    } catch (e) {
+      console.error(e);
+    }
+  }
 
   const property = await prisma.property.create({
     data: {
@@ -34,11 +68,46 @@ export async function createProperty(formData: FormData) {
       state,
       lat,
       lng,
+      contactPhone,
+      contactEmail,
       landlordId: session.user.id,
+      units: {
+        create: [
+          {
+            title,
+            description,
+            type,
+            price,
+            currency: "NPR",
+            isAvailable: true,
+            status: "APPROVED",
+            furnished,
+            attachedBath,
+            wifi,
+            parking,
+            petFriendly,
+            balcony,
+            kitchenAccess,
+            waterIncluded,
+            powerIncluded,
+            bachelorFriendly,
+            familyFriendly,
+            boysOnly,
+            girlsOnly,
+            smokingAllowed,
+            media: {
+              create: mediaUrls.map((url) => ({
+                url,
+                type: "IMAGE",
+              })),
+            },
+          },
+        ],
+      },
     },
   });
 
-  redirect(`/landlord/properties/${property.id}`);
+  redirect(`/landlord`);
 }
 
 export async function createUnit(propertyId: string, formData: FormData) {
@@ -70,6 +139,8 @@ export async function createUnit(propertyId: string, formData: FormData) {
   const petFriendly = formData.get("petFriendly") === "on";
   const balcony = formData.get("balcony") === "on";
   const kitchenAccess = formData.get("kitchenAccess") === "on";
+  const waterIncluded = formData.get("waterIncluded") === "on";
+  const powerIncluded = formData.get("powerIncluded") === "on";
 
   const mediaUrlsStr = formData.get("mediaUrls") as string;
   let mediaUrls: string[] = [];
@@ -98,6 +169,8 @@ export async function createUnit(propertyId: string, formData: FormData) {
       petFriendly,
       balcony,
       kitchenAccess,
+      waterIncluded,
+      powerIncluded,
       media: {
         create: mediaUrls.map((url) => ({
           url,

@@ -30,6 +30,7 @@ export interface ExploreFilters {
     lat: number;
     lng: number;
   };
+  radius?: number; // in km
 }
 
 export async function getExploreListings(filters: ExploreFilters = {}) {
@@ -81,29 +82,53 @@ export async function getExploreListings(filters: ExploreFilters = {}) {
 
     let propertyOrderIds: string[] = [];
     
-    // If center is provided, use PostGIS to sort properties by distance
-    if (filters.center && filters.bounds) {
+    // If center is provided, use PostGIS to sort by distance
+    // If radius is provided, filter by distance (ST_DWithin)
+    if (filters.center) {
       try {
-        const props: { id: string }[] = await prisma.$queryRaw`
-          SELECT id 
-          FROM "Property"
-          WHERE lat >= ${filters.bounds.south} 
-            AND lat <= ${filters.bounds.north}
-            AND lng >= ${filters.bounds.west} 
-            AND lng <= ${filters.bounds.east}
-          ORDER BY ST_DistanceSphere(
-            ST_MakePoint(lng, lat), 
-            ST_MakePoint(${filters.center.lng}, ${filters.center.lat})
-          ) ASC
-          LIMIT 50
-        `;
+        let props: { id: string }[] = [];
+        if (filters.radius) {
+          // Radius based search
+          props = await prisma.$queryRaw`
+            SELECT id 
+            FROM "Property"
+            WHERE ST_DWithin(
+              ST_MakePoint(lng, lat)::geography, 
+              ST_MakePoint(${filters.center.lng}, ${filters.center.lat})::geography, 
+              ${filters.radius * 1000}
+            )
+            ORDER BY ST_DistanceSphere(
+              ST_MakePoint(lng, lat), 
+              ST_MakePoint(${filters.center.lng}, ${filters.center.lat})
+            ) ASC
+            LIMIT 50
+          `;
+        } else if (filters.bounds) {
+          // Bounds based search + distance sorting
+          props = await prisma.$queryRaw`
+            SELECT id 
+            FROM "Property"
+            WHERE lat >= ${filters.bounds.south} 
+              AND lat <= ${filters.bounds.north}
+              AND lng >= ${filters.bounds.west} 
+              AND lng <= ${filters.bounds.east}
+            ORDER BY ST_DistanceSphere(
+              ST_MakePoint(lng, lat), 
+              ST_MakePoint(${filters.center.lng}, ${filters.center.lat})
+            ) ASC
+            LIMIT 50
+          `;
+        }
+        
         propertyOrderIds = props.map((p) => p.id);
         
         // Update where clause to only include these properties in distance order
         if (propertyOrderIds.length > 0) {
           where.propertyId = { in: propertyOrderIds };
-          delete where.property.lat;
-          delete where.property.lng;
+          if (where.property) {
+            delete where.property.lat;
+            delete where.property.lng;
+          }
         }
       } catch (e) {
         console.warn("PostGIS sorting failed, falling back to standard bounds", e);

@@ -2,7 +2,7 @@
 
 import Navbar from "@/components/shared/navbar";
 import { authClient } from "@/lib/auth-client";
-import { User, LogOut, Settings, Bell, Home, Shield, ShieldCheck } from "lucide-react";
+import { User, LogOut, Settings, Bell, Home, Shield, ShieldCheck, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
@@ -30,9 +30,11 @@ export default function ProfilePage() {
       <div className="flex min-h-screen flex-col bg-background">
         <Navbar />
         <main className="flex flex-1 flex-col items-center justify-center px-4 text-center">
-          <User className="mb-4 h-16 w-16 text-muted-foreground/30" />
-          <h1 className="text-2xl font-bold text-foreground">Sign in to view your profile</h1>
-          <p className="mt-2 text-muted-foreground">Manage your settings, view saved rooms, and more.</p>
+          <div className="flex h-20 w-20 items-center justify-center rounded-full bg-secondary mb-6">
+            <User className="h-10 w-10 text-muted-foreground/40" />
+          </div>
+          <h1 className="text-2xl font-extrabold text-foreground">Sign in to view your profile</h1>
+          <p className="mt-2 text-muted-foreground max-w-sm">Manage your settings, view saved rooms, and more.</p>
         </main>
       </div>
     );
@@ -57,95 +59,108 @@ export default function ProfilePage() {
     });
   };
 
+  const menuItems = [
+    {
+      href: "/landlord",
+      icon: Home,
+      iconColor: "text-primary",
+      iconBg: "bg-primary/10",
+      title: "Landlord Dashboard",
+      subtitle: "Manage your listed properties and units",
+    },
+    {
+      href: "/admin",
+      icon: Shield,
+      iconColor: "text-amber-600",
+      iconBg: "bg-amber-500/10",
+      title: "Admin Dashboard",
+      subtitle: "Moderate listings and manage the platform",
+    },
+  ];
+
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <Navbar />
       
-      <main className="mx-auto w-full max-w-3xl px-4 py-8 sm:px-6 lg:px-8">
-        <h1 className="text-3xl font-bold tracking-tight text-foreground mb-8">Profile</h1>
+      <main className="mx-auto w-full max-w-xl px-4 py-8 sm:px-6">
         
         {/* Profile Card */}
-        <div className="mb-8 flex items-center gap-4 rounded-2xl border border-border bg-card p-6 shadow-sm">
-          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-xl font-bold text-primary">
-            {session.user.name?.[0]?.toUpperCase() || <User className="h-8 w-8" />}
-          </div>
-          <div>
-            <h2 className="text-xl font-bold text-foreground">{session.user.name}</h2>
-            <p className="text-muted-foreground">{session.user.email}</p>
-            {promoted && (
-              <span className="mt-1 inline-block rounded-full bg-green-500/10 px-2.5 py-0.5 text-xs font-medium text-green-600">
-                Role updated to {promoted} — refresh to see changes
-              </span>
+        <div className="mb-8 flex flex-col items-center text-center rounded-3xl border border-border/40 bg-card p-8 shadow-sm">
+          <div className="flex h-20 w-20 overflow-hidden items-center justify-center rounded-full bg-accent text-2xl font-extrabold text-primary mb-4 border border-border/50 shadow-sm">
+            {session.user.image ? (
+              <img src={session.user.image} alt={session.user.name || "Profile"} className="h-full w-full object-cover" />
+            ) : (
+              session.user.name?.[0]?.toUpperCase() || <User className="h-9 w-9" />
             )}
           </div>
+          <h2 className="text-xl font-extrabold text-foreground">{session.user.name}</h2>
+          <p className="text-sm text-muted-foreground mt-1">{session.user.email}</p>
+          {promoted && (
+            <span className="mt-3 inline-block rounded-full bg-[#d2f4d6] px-3 py-1 text-xs font-semibold text-[#0d5916]">
+              Role updated to {promoted} — refresh to see changes
+            </span>
+          )}
         </div>
 
         {/* Menu Items */}
-        <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
-          <div className="divide-y divide-border/60">
-            <Link
-              href="/landlord"
-              className="flex items-center gap-4 p-4 transition-colors hover:bg-secondary"
-            >
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
-                <Home className="h-5 w-5" />
-              </div>
-              <div className="flex-1">
-                <h3 className="font-medium text-foreground">Landlord Dashboard</h3>
-                <p className="text-sm text-muted-foreground">Manage your listed properties and units</p>
-              </div>
-            </Link>
+        <div className="overflow-hidden rounded-3xl border border-border/40 bg-card shadow-sm mb-8">
+          <div className="divide-y divide-border/40">
+            {menuItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="flex items-center gap-4 p-5 transition-colors hover:bg-secondary/50"
+              >
+                <div className={`flex h-11 w-11 items-center justify-center rounded-2xl ${item.iconBg}`}>
+                  <item.icon className={`h-5 w-5 ${item.iconColor}`} />
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-semibold text-foreground">{item.title}</h3>
+                  <p className="text-sm text-muted-foreground">{item.subtitle}</p>
+                </div>
+                <ChevronRight className="h-5 w-5 text-muted-foreground/50" />
+              </Link>
+            ))}
 
-            <Link
-              href="/admin"
-              className="flex items-center gap-4 p-4 transition-colors hover:bg-secondary"
-            >
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-amber-500/10 text-amber-600">
-                <Shield className="h-5 w-5" />
-              </div>
-              <div className="flex-1">
-                <h3 className="font-medium text-foreground">Admin Dashboard</h3>
-                <p className="text-sm text-muted-foreground">Moderate listings and manage the platform</p>
-              </div>
-            </Link>
-
-            <button className="flex w-full items-center gap-4 p-4 transition-colors hover:bg-secondary">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary text-muted-foreground">
-                <Settings className="h-5 w-5" />
+            <Link href="/profile/settings" className="flex w-full items-center gap-4 p-5 transition-colors hover:bg-secondary/50">
+              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-secondary">
+                <Settings className="h-5 w-5 text-muted-foreground" />
               </div>
               <div className="flex-1 text-left">
-                <h3 className="font-medium text-foreground">Account Settings</h3>
+                <h3 className="font-semibold text-foreground">Account Settings</h3>
                 <p className="text-sm text-muted-foreground">Personal information and preferences</p>
               </div>
-            </button>
+              <ChevronRight className="h-5 w-5 text-muted-foreground/50" />
+            </Link>
 
-            <button className="flex w-full items-center gap-4 p-4 transition-colors hover:bg-secondary">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary text-muted-foreground">
-                <Bell className="h-5 w-5" />
+            <button className="flex w-full items-center gap-4 p-5 transition-colors hover:bg-secondary/50">
+              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-secondary">
+                <Bell className="h-5 w-5 text-muted-foreground" />
               </div>
               <div className="flex-1 text-left">
-                <h3 className="font-medium text-foreground">Notifications</h3>
+                <h3 className="font-semibold text-foreground">Notifications</h3>
                 <p className="text-sm text-muted-foreground">Manage alerts and messages</p>
               </div>
+              <ChevronRight className="h-5 w-5 text-muted-foreground/50" />
             </button>
 
             <button
               onClick={handleSignOut}
-              className="flex w-full items-center gap-4 p-4 transition-colors hover:bg-red-500/10"
+              className="flex w-full items-center gap-4 p-5 transition-colors hover:bg-destructive/5"
             >
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-red-500/10 text-red-500">
-                <LogOut className="h-5 w-5" />
+              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-destructive/10">
+                <LogOut className="h-5 w-5 text-destructive" />
               </div>
               <div className="flex-1 text-left">
-                <h3 className="font-medium text-red-500">Sign Out</h3>
+                <h3 className="font-semibold text-destructive">Sign Out</h3>
               </div>
             </button>
           </div>
         </div>
 
         {/* Dev Tools — Role Promotion */}
-        <div className="mt-8 rounded-2xl border border-dashed border-amber-500/30 bg-amber-500/5 p-6">
-          <h3 className="text-sm font-semibold text-amber-600 mb-1 flex items-center gap-2">
+        <div className="rounded-3xl border border-dashed border-amber-500/30 bg-amber-500/5 p-6">
+          <h3 className="text-sm font-bold text-amber-600 mb-1 flex items-center gap-2">
             <ShieldCheck className="h-4 w-4" />
             Developer Tools
           </h3>
@@ -154,14 +169,14 @@ export default function ProfilePage() {
             <button
               onClick={handlePromoteAdmin}
               disabled={isPromoting}
-              className="rounded-lg border border-amber-500/30 bg-amber-500/10 px-4 py-2 text-sm font-medium text-amber-700 transition-colors hover:bg-amber-500/20 disabled:opacity-50"
+              className="rounded-2xl border border-amber-500/30 bg-amber-500/10 px-5 py-2.5 text-sm font-bold text-amber-700 transition-all hover:bg-amber-500/20 disabled:opacity-50 active:scale-95"
             >
               {isPromoting ? "Promoting..." : "Promote to Admin"}
             </button>
             <button
               onClick={handlePromoteLandlord}
               disabled={isPromoting}
-              className="rounded-lg border border-primary/30 bg-primary/10 px-4 py-2 text-sm font-medium text-primary transition-colors hover:bg-primary/20 disabled:opacity-50"
+              className="rounded-2xl border border-primary/30 bg-primary/10 px-5 py-2.5 text-sm font-bold text-primary transition-all hover:bg-primary/20 disabled:opacity-50 active:scale-95"
             >
               {isPromoting ? "Promoting..." : "Promote to Landlord"}
             </button>
