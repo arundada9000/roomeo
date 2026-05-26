@@ -102,10 +102,13 @@ model Property {
   city        String
   state       String
   zipCode     String?
-  
   // PostGIS location (latitude and longitude as standard fields, geo stored via raw SQL if needed for advanced queries)
   lat         Float
   lng         Float
+  
+  // Contact Details
+  contactPhone String?
+  contactEmail String?
   
   units       Unit[]
   reviews     Review[]
