@@ -61,79 +61,87 @@
 }
 
 /* ============================================================
-   ROOMEO LIGHT THEME
-   Palette: Blue #2563EB, Teal #14B8A6, Slate neutrals
+   ROOMEO LIGHT THEME - Lumina Habitat
 ============================================================ */
 :root {
-  --background: #F8FAFC;
-  --foreground: #0F172A;
-  --card: #FFFFFF;
-  --card-foreground: #0F172A;
-  --popover: #FFFFFF;
-  --popover-foreground: #0F172A;
-  --primary: #2563EB;
-  --primary-foreground: #FFFFFF;
-  --secondary: #F1F5F9;
-  --secondary-foreground: #0F172A;
-  --muted: #F1F5F9;
-  --muted-foreground: #64748B;
-  --accent: #14B8A6;
-  --accent-foreground: #FFFFFF;
-  --destructive: #EF4444;
-  --border: #E2E8F0;
-  --input: #E2E8F0;
-  --ring: #2563EB;
-  --chart-1: #2563EB;
-  --chart-2: #14B8A6;
-  --chart-3: #F59E0B;
-  --chart-4: #EF4444;
-  --chart-5: #8B5CF6;
-  --radius: 0.75rem;
-  --sidebar: #FFFFFF;
-  --sidebar-foreground: #0F172A;
-  --sidebar-primary: #2563EB;
-  --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #F1F5F9;
-  --sidebar-accent-foreground: #0F172A;
-  --sidebar-border: #E2E8F0;
-  --sidebar-ring: #2563EB;
+  --background: #faf8ff;
+  --foreground: #191b23;
+  --card: #ffffff;
+  --card-foreground: #191b23;
+  --popover: #ffffff;
+  --popover-foreground: #191b23;
+  --primary: #004ac6;
+  --primary-foreground: #ffffff;
+  --secondary: #f3f3fe; /* surface-container-low */
+  --secondary-foreground: #191b23;
+  --muted: #f3f3fe;
+  --muted-foreground: #434655; /* on-surface-variant */
+  --accent: #dae2fd; /* secondary-container */
+  --accent-foreground: #191b23;
+  --destructive: #ba1a1a;
+  --destructive-foreground: #ffffff;
+  --border: #c3c6d7; /* outline-variant */
+  --input: #c3c6d7;
+  --ring: #004ac6;
+  --chart-1: #004ac6;
+  --chart-2: #565e74;
+  --chart-3: #bc4800;
+  --chart-4: #ba1a1a;
+  --chart-5: #0053db;
+  --radius: 0.5rem;
+  --sidebar: #faf8ff;
+  --sidebar-foreground: #191b23;
+  --sidebar-primary: #004ac6;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f3f3fe;
+  --sidebar-accent-foreground: #191b23;
+  --sidebar-border: #c3c6d7;
+  --sidebar-ring: #004ac6;
+
+  /* Custom Lumina colors for specific use cases */
+  --surface-dim: #d9d9e5;
+  --surface-container-highest: #e1e2ed;
 }
 
 /* ============================================================
-   ROOMEO DARK THEME
+   ROOMEO DARK THEME - Lumina Habitat (Inverse mapping)
 ============================================================ */
 .dark {
-  --background: #020617;
-  --foreground: #F8FAFC;
-  --card: #0F172A;
-  --card-foreground: #F8FAFC;
-  --popover: #0F172A;
-  --popover-foreground: #F8FAFC;
-  --primary: #3B82F6;
-  --primary-foreground: #FFFFFF;
-  --secondary: #1E293B;
-  --secondary-foreground: #F8FAFC;
-  --muted: #1E293B;
-  --muted-foreground: #94A3B8;
-  --accent: #14B8A6;
-  --accent-foreground: #FFFFFF;
-  --destructive: #EF4444;
-  --border: #1E293B;
-  --input: #1E293B;
-  --ring: #3B82F6;
-  --chart-1: #3B82F6;
-  --chart-2: #14B8A6;
-  --chart-3: #F59E0B;
-  --chart-4: #EF4444;
-  --chart-5: #A78BFA;
-  --sidebar: #0F172A;
-  --sidebar-foreground: #F8FAFC;
-  --sidebar-primary: #3B82F6;
-  --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #1E293B;
-  --sidebar-accent-foreground: #F8FAFC;
-  --sidebar-border: #1E293B;
-  --sidebar-ring: #3B82F6;
+  --background: #191b23;
+  --foreground: #faf8ff;
+  --card: #2e3039;
+  --card-foreground: #faf8ff;
+  --popover: #2e3039;
+  --popover-foreground: #faf8ff;
+  --primary: #b4c5ff; /* inverse-primary */
+  --primary-foreground: #00174b;
+  --secondary: #434655;
+  --secondary-foreground: #faf8ff;
+  --muted: #434655;
+  --muted-foreground: #c3c6d7;
+  --accent: #565e74;
+  --accent-foreground: #ffffff;
+  --destructive: #ffdad6;
+  --destructive-foreground: #93000a;
+  --border: #737686;
+  --input: #737686;
+  --ring: #b4c5ff;
+  --chart-1: #b4c5ff;
+  --chart-2: #dae2fd;
+  --chart-3: #ffdbcd;
+  --chart-4: #ffdad6;
+  --chart-5: #dbe1ff;
+  --sidebar: #191b23;
+  --sidebar-foreground: #faf8ff;
+  --sidebar-primary: #b4c5ff;
+  --sidebar-primary-foreground: #00174b;
+  --sidebar-accent: #434655;
+  --sidebar-accent-foreground: #faf8ff;
+  --sidebar-border: #737686;
+  --sidebar-ring: #b4c5ff;
+
+  --surface-dim: #191b23;
+  --surface-container-highest: #434655;
 }
 
 /* ============================================================
@@ -148,6 +156,11 @@
   }
   html {
     @apply font-sans scroll-smooth;
+  }
+  button, 
+  [role="button"],
+  a {
+    cursor: pointer;
   }
 }
 
@@ -210,4 +223,4 @@
   background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.08) 50%, transparent 100%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
-}
+}.animate-marquee { animation: marquee 25s linear infinite; } .mask-edges { mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); } .hover\:pause:hover { animation-play-state: paused; } @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-50% - 1.5rem)); } } 
