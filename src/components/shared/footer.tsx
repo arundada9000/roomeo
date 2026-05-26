@@ -1,17 +1,18 @@
 import Link from "next/link";
-import { MapPin } from "lucide-react";
+import Image from "next/image";
+import { ArrowRight, Globe, MessageCircle } from "lucide-react";
 
 const footerLinks = {
   Product: [
     { label: "Explore Rooms", href: "/explore" },
     { label: "List Property", href: "/landlord" },
-    { label: "How It Works", href: "/#how-it-works" },
     { label: "Pricing", href: "/pricing" },
+    { label: "How It Works", href: "/#how-it-works" },
   ],
   Company: [
-    { label: "About", href: "/about" },
-    { label: "Blog", href: "/blog" },
+    { label: "About Us", href: "/about" },
     { label: "Careers", href: "/careers" },
+    { label: "Blog", href: "/blog" },
     { label: "Contact", href: "/contact" },
   ],
   Legal: [
@@ -23,55 +24,108 @@ const footerLinks = {
 
 export default function Footer() {
   return (
-    <footer className="border-t border-border/60 bg-card">
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
-          {/* Brand Column */}
-          <div className="col-span-2 md:col-span-1">
-            <Link href="/" className="flex items-center gap-2 group" id="footer-logo">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-primary-foreground">
-                <MapPin className="h-5 w-5" />
+    <footer className="relative border-t border-border/20 bg-background overflow-hidden">
+      {/* Background Glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
+
+      <div className="relative mx-auto max-w-[1400px] px-4 py-16 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-8">
+          
+          {/* Brand & Newsletter Column */}
+          <div className="lg:col-span-4">
+            <Link href="/" className="flex items-center gap-3 group mb-6" id="footer-logo">
+              <div className="relative flex h-10 w-10 items-center justify-center rounded-2xl bg-white shadow-lg shadow-primary/10 overflow-hidden border border-border/50">
+                <Image 
+                  src="/icons/icon-192x192.png" 
+                  alt="Roomeo Logo" 
+                  width={40} 
+                  height={40} 
+                  className="w-full h-full object-cover"
+                />
               </div>
-              <span className="text-xl font-bold tracking-tight">Roomeo</span>
+              <span className="text-2xl font-extrabold tracking-tight text-foreground">Roomeo</span>
             </Link>
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
-              The fastest and cleanest way to find a nearby room. Discover
-              verified spaces with real-time availability.
+            <p className="max-w-xs text-[15px] leading-relaxed text-muted-foreground mb-8">
+              The fastest, cleanest, and most premium way to find a nearby room. Discover verified spaces with real-time availability today.
             </p>
+            
+            {/* Newsletter */}
+            <div className="space-y-3">
+              <p className="text-sm font-bold text-foreground">Subscribe to our newsletter</p>
+              <div className="flex items-center max-w-sm rounded-full border border-border/50 bg-secondary/30 p-1 shadow-sm transition-all focus-within:border-primary/50 focus-within:bg-background focus-within:shadow-md">
+                <input 
+                  type="email" 
+                  placeholder="Enter your email" 
+                  className="w-full bg-transparent px-4 py-2.5 text-sm font-medium outline-none placeholder:text-muted-foreground"
+                />
+                <button className="flex h-10 items-center justify-center rounded-full bg-primary px-5 text-sm font-bold text-primary-foreground transition-transform hover:scale-105 active:scale-95 shadow-md shadow-primary/20">
+                  Subscribe
+                </button>
+              </div>
+            </div>
           </div>
 
           {/* Link Columns */}
-          {Object.entries(footerLinks).map(([category, links]) => (
-            <div key={category}>
-              <h3 className="text-sm font-semibold text-foreground">
-                {category}
-              </h3>
-              <ul className="mt-4 space-y-3">
-                {links.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          <div className="lg:col-span-8 grid grid-cols-2 gap-8 sm:grid-cols-3">
+            {Object.entries(footerLinks).map(([category, links]) => (
+              <div key={category}>
+                <h3 className="text-sm font-extrabold text-foreground tracking-widest uppercase mb-6">
+                  {category}
+                </h3>
+                <ul className="space-y-4">
+                  {links.map((link) => (
+                    <li key={link.href}>
+                      <Link
+                        href={link.href}
+                        className="group flex items-center text-[15px] font-medium text-muted-foreground transition-all hover:text-primary"
+                      >
+                        {link.label}
+                        <ArrowRight className="ml-1 h-3 w-3 opacity-0 -translate-x-2 transition-all group-hover:opacity-100 group-hover:translate-x-0" />
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-border/60 pt-8 sm:flex-row">
-          <p className="text-sm text-muted-foreground">
-            &copy; {new Date().getFullYear()} Roomeo. All rights reserved.
+        <div className="mt-16 flex flex-col items-center justify-between gap-6 border-t border-border/40 pt-8 md:flex-row overflow-hidden">
+          <p className="text-sm text-muted-foreground font-medium shrink-0">
+            &copy; {new Date().getFullYear()} Roomeo Inc. All rights reserved.
           </p>
-          <p className="text-sm text-muted-foreground">
-            Find your space nearby.
-          </p>
+          
+          {/* Social Links Marquee */}
+          <div className="flex-1 w-full max-w-full overflow-hidden relative border-l border-r border-border/20 mx-4 mask-edges">
+            {/* The outer container clips the content, mask-edges adds a fade effect on sides */}
+            <div className="flex w-fit animate-marquee hover:pause whitespace-nowrap py-2">
+              {/* Double the array for seamless scrolling */}
+              {[...socials, ...socials].map((social, i) => (
+                <a 
+                  key={`${social.name}-${i}`} 
+                  href={social.url} 
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group flex items-center gap-1.5 mx-3 rounded-full border border-border/50 bg-secondary/30 px-5 py-2.5 text-xs font-bold text-muted-foreground transition-all hover:border-primary/30 hover:bg-primary/10 hover:text-primary shrink-0"
+                >
+                  <span>{social.name}</span>
+                  <span className="font-medium opacity-60 transition-opacity group-hover:opacity-100">{social.handle}</span>
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </footer>
   );
 }
+
+const socials = [
+  { name: "Fb", handle: "arundada9000", url: "https://facebook.com/arundada9000" },
+  { name: "Insta", handle: "arundada9000", url: "https://instagram.com/arundada9000" },
+  { name: "GitHub", handle: "arundada9000", url: "https://github.com/arundada9000" },
+  { name: "YT", handle: "@arundada9000", url: "https://youtube.com/@arundada9000" },
+  { name: "LinkedIn", handle: "@arundada9000", url: "https://linkedin.com/in/arundada9000" },
+  { name: "TikTok", handle: "@arundada9000", url: "https://tiktok.com/@arundada9000" },
+];

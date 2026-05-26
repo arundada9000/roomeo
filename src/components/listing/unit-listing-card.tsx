@@ -10,10 +10,12 @@ import {
   Trees,
   UtensilsCrossed,
   MapPin,
-  IndianRupee,
+  Heart
 } from "lucide-react";
 import { useMapStore } from "@/stores/map-store";
 import type { UnitCard, RoomType } from "@/types";
+import Link from "next/link";
+import FavoriteButton from "@/components/shared/favorite-button";
 
 /* ─── Room Type Labels ─── */
 const roomTypeLabels: Record<RoomType, string> = {
@@ -68,84 +70,76 @@ export default function UnitListingCard({ unit }: UnitListingCardProps) {
   );
 
   return (
-    <button
-      onClick={() => setSelectedUnitId(isSelected ? null : unit.id)}
-      className={`group w-full text-left rounded-xl border bg-card p-4 transition-all duration-200 hover:shadow-md ${
+    <Link
+      href={`/units/${unit.id}`}
+      className={`group block w-full text-left rounded-2xl bg-card transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${
         isSelected
-          ? "border-primary/40 shadow-md shadow-primary/[0.06] ring-1 ring-primary/20"
-          : "border-border/60 hover:border-border"
+          ? "shadow-lg shadow-primary/10 ring-2 ring-primary"
+          : "shadow-sm border border-border/50"
       }`}
       id={`unit-card-${unit.id}`}
     >
-      {/* Image Placeholder / First media */}
-      <div className="relative aspect-[16/10] w-full overflow-hidden rounded-lg bg-secondary">
+      {/* Image Container */}
+      <div className="relative aspect-[16/10] w-full overflow-hidden rounded-t-2xl bg-surface-dim">
         {unit.media && unit.media.length > 0 ? (
           <img
             src={unit.media[0].url}
             alt={unit.title}
-            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
             loading="lazy"
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center">
-            <Home className="h-8 w-8 text-muted-foreground/40" />
+            <Home className="h-8 w-8 text-muted-foreground/30" />
           </div>
         )}
-        {/* Price Badge */}
-        <div className="absolute bottom-2 left-2 rounded-lg bg-background/90 px-2.5 py-1 text-sm font-bold text-foreground shadow-sm backdrop-blur-sm">
-          <span className="flex items-center gap-0.5">
-            {formattedPrice}
-            <span className="text-xs font-normal text-muted-foreground">/mo</span>
-          </span>
+        
+        {/* Top Overlay: Heart & Type */}
+        <div className="absolute top-3 right-3 flex flex-col items-end gap-2 z-10">
+          <FavoriteButton unit={unit} />
         </div>
-        {/* Room Type Badge */}
-        <div className="absolute right-2 top-2 rounded-md bg-primary/90 px-2 py-0.5 text-[11px] font-semibold text-primary-foreground shadow-sm">
-          {roomTypeLabels[unit.type]}
+        
+        {/* Bottom Overlay: Price */}
+        <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/60 via-black/30 to-transparent p-4 pt-8">
+           <span className="text-xl font-bold text-white tracking-tight drop-shadow-sm">
+             {formattedPrice} <span className="text-sm font-normal text-white/80">/mo</span>
+           </span>
         </div>
       </div>
 
-      {/* Info */}
-      <div className="mt-3">
-        <h3 className="text-sm font-semibold text-foreground line-clamp-1">
+      {/* Info Section */}
+      <div className="p-4">
+        <h3 className="text-base font-semibold text-foreground line-clamp-1 mb-1">
           {unit.title}
         </h3>
-        <p className="mt-0.5 flex items-center gap-1 text-xs text-muted-foreground line-clamp-1">
-          <MapPin className="h-3 w-3 shrink-0" />
+        <p className="flex items-center gap-1.5 text-sm text-muted-foreground line-clamp-1 mb-3">
+          <MapPin className="h-4 w-4 shrink-0 text-muted-foreground/70" />
           {unit.property.address}, {unit.property.city}
         </p>
-      </div>
 
-      {/* Amenities */}
-      {amenities.length > 0 && (
-        <div className="mt-2.5 flex flex-wrap gap-1">
-          {amenities.slice(0, 4).map((a) => (
-            <AmenityBadge key={a.label} icon={a.icon} label={a.label} />
-          ))}
-          {amenities.length > 4 && (
-            <span className="inline-flex items-center rounded-md bg-secondary px-2 py-0.5 text-[11px] font-medium text-muted-foreground">
-              +{amenities.length - 4}
-            </span>
+        {/* Horizontal Divider */}
+        <div className="h-px w-full bg-border/40 mb-3" />
+
+        {/* Amenities Row */}
+        <div className="flex items-center gap-3 text-sm text-foreground">
+          <div className="flex items-center gap-1.5 font-medium">
+             <Home className="h-4 w-4 text-primary" />
+             {roomTypeLabels[unit.type]}
+          </div>
+          {unit.attachedBath && (
+             <div className="flex items-center gap-1.5 font-medium">
+                <Bath className="h-4 w-4 text-primary" />
+                Bath
+             </div>
+          )}
+          {unit.wifi && (
+             <div className="flex items-center gap-1.5 font-medium">
+                <Wifi className="h-4 w-4 text-primary" />
+                Wi-Fi
+             </div>
           )}
         </div>
-      )}
-
-      {/* Availability */}
-      <div className="mt-3 flex items-center gap-2">
-        <span
-          className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-medium ${
-            unit.isAvailable
-              ? "bg-roomeo-success/10 text-roomeo-success"
-              : "bg-muted text-muted-foreground"
-          }`}
-        >
-          <span
-            className={`h-1.5 w-1.5 rounded-full ${
-              unit.isAvailable ? "bg-roomeo-success" : "bg-muted-foreground"
-            }`}
-          />
-          {unit.isAvailable ? "Available" : "Occupied"}
-        </span>
       </div>
-    </button>
+    </Link>
   );
 }

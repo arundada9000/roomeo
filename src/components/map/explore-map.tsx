@@ -3,27 +3,33 @@
 import { useEffect, useRef, useCallback } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMap, useMapEvents } from "react-leaflet";
 import L from "leaflet";
+import { Navigation } from "lucide-react";
 import "leaflet/dist/leaflet.css";
 import { useMapStore } from "@/stores/map-store";
 import type { UnitCard } from "@/types";
 
-/* ─── Custom Marker Icon ─── */
-const createMarkerIcon = (isSelected: boolean) =>
+const createMarkerIcon = (isSelected: boolean, priceStr: string) =>
   L.divIcon({
-    className: "custom-marker",
+    className: "custom-marker bg-transparent border-0",
     html: `<div style="
-      width: ${isSelected ? "36px" : "28px"};
-      height: ${isSelected ? "36px" : "28px"};
-      border-radius: 50% 50% 50% 0;
-      background: ${isSelected ? "#2563EB" : "#3B82F6"};
-      border: 3px solid white;
-      transform: rotate(-45deg);
-      box-shadow: 0 4px 12px rgba(37,99,235,0.35);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: ${isSelected ? "#004ac6" : "#ffffff"};
+      color: ${isSelected ? "#ffffff" : "#004ac6"};
+      font-weight: 600;
+      font-size: 14px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      border: 1px solid ${isSelected ? "#004ac6" : "#e1e2ed"};
       transition: all 0.2s ease;
-    "></div>`,
-    iconSize: isSelected ? [36, 36] : [28, 28],
-    iconAnchor: isSelected ? [18, 36] : [14, 28],
-    popupAnchor: [0, -30],
+      transform: scale(${isSelected ? 1.05 : 1});
+      font-family: var(--font-sans);
+    ">${priceStr}</div>`,
+    iconSize: [undefined as any, undefined as any], // auto size
+    iconAnchor: [30, 16], // approximate center bottom
+    popupAnchor: [0, -20],
   });
 
 const userLocationIcon = L.divIcon({
@@ -98,13 +104,25 @@ export default function ExploreMap({ listings }: ExploreMapProps) {
             lng: pos.coords.longitude,
           });
         },
-        () => {
-          // User denied geolocation — use default center
-        },
+        () => {},
         { enableHighAccuracy: true, timeout: 10000 }
       );
     }
   }, [setUserLocation]);
+
+  const locateUser = () => {
+    if (navigator.geolocation && mapRef.current) {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          const latlng = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+          setUserLocation(latlng);
+          mapRef.current?.flyTo([latlng.lat, latlng.lng], 15, { animate: true, duration: 1.5 });
+        },
+        () => { alert("Location access denied or unavailable."); },
+        { enableHighAccuracy: true, timeout: 10000 }
+      );
+    }
+  };
 
   const formatPrice = useCallback((price: number, currency: string) => {
     return new Intl.NumberFormat("en-IN", {
@@ -124,8 +142,8 @@ export default function ExploreMap({ listings }: ExploreMapProps) {
       attributionControl={false}
     >
       <TileLayer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
       />
 
       <MapEventHandler />
@@ -147,7 +165,7 @@ export default function ExploreMap({ listings }: ExploreMapProps) {
         <Marker
           key={unit.id}
           position={[unit.property.lat, unit.property.lng]}
-          icon={createMarkerIcon(selectedUnitId === unit.id)}
+          icon={createMarkerIcon(selectedUnitId === unit.id, formatPrice(unit.price, unit.currency))}
           eventHandlers={{
             click: () => setSelectedUnitId(unit.id),
           }}
@@ -167,6 +185,17 @@ export default function ExploreMap({ listings }: ExploreMapProps) {
           </Popup>
         </Marker>
       ))}
+
+      {/* Locate Me Floating Button */}
+      <div className="absolute top-[160px] md:top-36 right-4 z-[400]">
+        <button
+          onClick={locateUser}
+          className="flex h-12 w-12 items-center justify-center rounded-2xl bg-surface/90 backdrop-blur-xl shadow-lg border border-border/40 text-primary hover:bg-surface active:scale-95 transition-all"
+        >
+          <Navigation className="h-6 w-6" />
+        </button>
+      </div>
+
     </MapContainer>
   );
 }
