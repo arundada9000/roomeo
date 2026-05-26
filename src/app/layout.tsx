@@ -36,12 +36,21 @@ export const metadata: Metadata = {
     siteName: "Roomeo",
     type: "website",
     locale: "en_US",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1080,
+        height: 1920,
+        alt: "Roomeo — Find Your Space Nearby",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Roomeo — Find Your Space Nearby",
     description:
       "Discover nearby rooms and flats with real-time availability, smart filters, and map-first exploration.",
+    images: ["/og-image.png"],
   },
   robots: {
     index: true,

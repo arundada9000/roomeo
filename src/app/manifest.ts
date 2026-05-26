@@ -38,6 +38,70 @@ export default function manifest(): MetadataRoute.Manifest {
         purpose: "any",
       },
     ],
-
+    screenshots: [
+      {
+        src: "/screenshots/landing-page.png",
+        sizes: "1080x1920",
+        type: "image/png",
+        form_factor: "narrow",
+        label: "Roomeo Home",
+      },
+      {
+        src: "/screenshots/map.png",
+        sizes: "1080x1920",
+        type: "image/png",
+        form_factor: "narrow",
+        label: "Explore Map",
+      },
+      {
+        src: "/screenshots/room-detail.png",
+        sizes: "1080x1920",
+        type: "image/png",
+        form_factor: "narrow",
+        label: "Room Details",
+      },
+      {
+        src: "/screenshots/saved.png",
+        sizes: "1080x1920",
+        type: "image/png",
+        form_factor: "narrow",
+        label: "Saved Properties",
+      },
+      {
+        src: "/screenshots/dashboard.png",
+        sizes: "1080x1920",
+        type: "image/png",
+        form_factor: "narrow",
+        label: "Landlord Dashboard",
+      },
+      {
+        src: "/screenshots/profile.png",
+        sizes: "1080x1920",
+        type: "image/png",
+        form_factor: "narrow",
+        label: "User Profile",
+      },
+      {
+        src: "/screenshots/share.png",
+        sizes: "1080x1920",
+        type: "image/png",
+        form_factor: "narrow",
+        label: "Share Property",
+      },
+      {
+        src: "/screenshots/contact-page.png",
+        sizes: "1080x1920",
+        type: "image/png",
+        form_factor: "narrow",
+        label: "Contact Us",
+      },
+      {
+        src: "/screenshots/cookie.png",
+        sizes: "1080x1920",
+        type: "image/png",
+        form_factor: "narrow",
+        label: "Cookie Preferences",
+      },
+    ],
   };
 }
