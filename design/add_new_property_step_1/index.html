@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error": "#ba1a1a",
+                        "on-primary-fixed": "#00174b",
+                        "tertiary-container": "#bc4800",
+                        "surface-container-high": "#e7e7f3",
+                        "inverse-surface": "#2e3039",
+                        "on-tertiary-container": "#ffede6",
+                        "on-tertiary": "#ffffff",
+                        "surface-tint": "#0053db",
+                        "secondary-fixed": "#dae2fd",
+                        "tertiary": "#943700",
+                        "surface-variant": "#e1e2ed",
+                        "error-container": "#ffdad6",
+                        "surface-container-highest": "#e1e2ed",
+                        "primary-fixed": "#dbe1ff",
+                        "outline": "#737686",
+                        "on-secondary-fixed": "#131b2e",
+                        "secondary": "#565e74",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "on-primary": "#ffffff",
+                        "on-background": "#191b23",
+                        "primary": "#004ac6",
+                        "inverse-on-surface": "#f0f0fb",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed-variant": "#7d2d00",
+                        "inverse-primary": "#b4c5ff",
+                        "primary-container": "#2563eb",
+                        "outline-variant": "#c3c6d7",
+                        "surface-bright": "#faf8ff",
+                        "surface-container-low": "#f3f3fe",
+                        "on-error": "#ffffff",
+                        "on-surface-variant": "#434655",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "background": "#faf8ff",
+                        "on-secondary-container": "#5c647a",
+                        "tertiary-fixed-dim": "#ffb596",
+                        "on-primary-container": "#eeefff",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "surface": "#faf8ff",
+                        "surface-dim": "#d9d9e5",
+                        "surface-container": "#ededf9",
+                        "on-tertiary-fixed": "#360f00",
+                        "secondary-container": "#dae2fd",
+                        "on-surface": "#191b23",
+                        "tertiary-fixed": "#ffdbcd"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "24px",
+                        "margin-desktop": "32px",
+                        "md": "16px",
+                        "xl": "32px",
+                        "gutter": "16px",
+                        "container-max": "1280px",
+                        "3xl": "64px",
+                        "xs": "4px",
+                        "margin-mobile": "16px",
+                        "sm": "12px",
+                        "base": "8px",
+                        "2xl": "48px"
+                    },
+                    "fontFamily": {
+                        "headline-xl": ["Geist"],
+                        "headline-sm": ["Geist"],
+                        "label-md": ["Geist"],
+                        "headline-lg-mobile": ["Geist"],
+                        "headline-lg": ["Geist"],
+                        "body-md": ["Geist"],
+                        "headline-md": ["Geist"],
+                        "headline-xl-mobile": ["Geist"],
+                        "body-sm": ["Geist"],
+                        "body-lg": ["Geist"]
+                    },
+                    "fontSize": {
+                        "headline-xl": ["40px", { "lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700" }],
+                        "headline-sm": ["20px", { "lineHeight": "1.4", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-md": ["12px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["26px", { "lineHeight": "1.2", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.03em", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "headline-xl-mobile": ["32px", { "lineHeight": "1.1", "fontWeight": "700" }],
+                        "body-sm": ["14px", { "lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400" }]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Geist', sans-serif;
+        }
+
+        .glass-effect {
+            backdrop-filter: blur(12px);
+            background-color: rgba(250, 248, 255, 0.8);
+        }
+
+        .input-focus-ring:focus {
+            outline: none;
+            border-color: #004ac6;
+            box-shadow: 0 0 0 2px rgba(0, 74, 198, 0.1);
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+
+<body class="bg-background text-on-background min-h-screen">
+    <!-- TopAppBar -->
+    <header
+        class="bg-surface/80 dark:bg-on-surface/80 backdrop-blur-xl shadow-sm docked full-width top-0 sticky flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop h-16 z-40">
+        <div class="flex items-center gap-4">
+            <button class="hover:opacity-80 transition-opacity text-primary">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+            <span
+                class="text-headline-md font-headline-md font-bold tracking-tighter text-primary dark:text-primary-fixed">Roomeo</span>
+        </div>
+        <div class="flex items-center gap-4">
+            <span class="text-body-md font-body-md text-secondary hidden md:block">Draft: New Property</span>
+            <div
+                class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-bold text-label-md">
+                AR
+            </div>
+        </div>
+    </header>
+    <main class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-xl">
+        <!-- Progress Indicator -->
+        <div class="mb-2xl">
+            <div class="flex items-center justify-between mb-sm">
+                <h1 class="text-headline-lg-mobile md:text-headline-lg font-headline-lg">Basic Information</h1>
+                <span class="text-label-md font-label-md text-primary uppercase tracking-widest">Step 1 of 4</span>
+            </div>
+            <div class="w-full h-1.5 bg-surface-container-high rounded-full overflow-hidden">
+                <div class="w-1/4 h-full bg-primary transition-all duration-500 ease-out"></div>
+            </div>
+        </div>
+        <!-- Form Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-xl">
+            <!-- Left Column: Form Fields -->
+            <div class="lg:col-span-7 space-y-xl">
+                <section class="space-y-lg">
+                    <!-- Property Name -->
+                    <div class="space-y-xs">
+                        <label class="text-label-md font-label-md text-on-surface-variant" for="property-name">PROPERTY
+                            NAME</label>
+                        <input
+                            class="w-full px-md py-sm rounded-xl border border-outline-variant bg-surface-container-lowest text-body-md font-body-md input-focus-ring transition-all placeholder:text-outline"
+                            id="property-name" placeholder="e.g. Skyline Penthouse" type="text">
+                    </div>
+                    <!-- Property Type (Bento Selection) -->
+                    <div class="space-y-xs">
+                        <label class="text-label-md font-label-md text-on-surface-variant">PROPERTY TYPE</label>
+                        <div class="grid grid-cols-2 gap-md">
+                            <button
+                                class="flex flex-col items-center justify-center p-xl rounded-xl border-2 border-primary bg-primary/5 text-primary transition-all group active:scale-95"
+                                id="type-room" onclick="selectType('room')">
+                                <span class="material-symbols-outlined text-3xl mb-sm"
+                                    style="font-variation-settings: 'FILL' 1;">bed</span>
+                                <span class="text-body-md font-bold">Room</span>
+                            </button>
+                            <button
+                                class="flex flex-col items-center justify-center p-xl rounded-xl border-2 border-outline-variant hover:border-primary-container bg-surface-container-lowest text-on-surface-variant transition-all group active:scale-95"
+                                id="type-flat" onclick="selectType('flat')">
+                                <span class="material-symbols-outlined text-3xl mb-sm">apartment</span>
+                                <span class="text-body-md font-bold">Flat/Home</span>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Address Search -->
+                    <div class="space-y-xs">
+                        <label class="text-label-md font-label-md text-on-surface-variant" for="address">FULL
+                            ADDRESS</label>
+                        <div class="relative">
+                            <span
+                                class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-outline">location_on</span>
+                            <input
+                                class="w-full pl-12 pr-md py-sm rounded-xl border border-outline-variant bg-surface-container-lowest text-body-md font-body-md input-focus-ring transition-all"
+                                id="address" placeholder="Start typing address..." type="text">
+                        </div>
+                    </div>
+                    <!-- Price Monthly -->
+                    <div class="space-y-xs">
+                        <label class="text-label-md font-label-md text-on-surface-variant" for="price">PRICE PER
+                            MONTH</label>
+                        <div class="relative max-w-xs">
+                            <span
+                                class="absolute left-md top-1/2 -translate-y-1/2 text-body-md font-bold text-on-surface">$</span>
+                            <input
+                                class="w-full pl-10 pr-md py-sm rounded-xl border border-outline-variant bg-surface-container-lowest text-body-md font-body-md input-focus-ring transition-all"
+                                id="price" placeholder="0.00" type="number">
+                        </div>
+                        <p class="text-body-sm font-body-sm text-outline mt-xs">Suggested for your area: $2,400 - $3,100
+                        </p>
+                    </div>
+                </section>
+                <!-- Navigation Buttons -->
+                <div class="flex flex-col md:flex-row items-center gap-md pt-lg">
+                    <button
+                        class="w-full md:w-auto px-2xl py-md bg-primary text-on-primary rounded-full font-bold text-body-md hover:opacity-90 active:scale-95 transition-all shadow-md">
+                        Next: Photos &amp; Amenities
+                    </button>
+                    <button
+                        class="w-full md:w-auto px-2xl py-md text-secondary font-bold text-body-md hover:bg-surface-container-high rounded-full transition-all">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+            <!-- Right Column: Visual Preview / Context -->
+            <div class="lg:col-span-5 hidden lg:block">
+                <div class="sticky top-24 space-y-lg">
+                    <div class="rounded-3xl overflow-hidden shadow-xl border border-outline-variant bg-surface">
+                        <div class="relative h-64">
+                            <img class="w-full h-full object-cover"
+                                data-alt="A luxurious modern high-end residential living room with floor to ceiling windows overlooking a sunset cityscape. The interior features premium oak flooring, designer furniture in neutral tones, and warm, atmospheric recessed lighting. The aesthetic is clean and minimal, emphasizing high-definition spatial quality and architectural precision consistent with a professional real estate portfolio."
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtYmNFk6w-Da-W7sY7Rn2jzeCwCx9l_FBqXHEMJQhGDs0I1tKGqUTYLyuUQhCeVxSTDkN77EHaarTcnRWL0lcv9nujgFh0NtfNylwRKHWAXdFvSKSsjlF8QSQgg-89CJ2EWGbCO9vgBekrVb4g_1hCDtJ7ar1A01-n-o_Yx4ZUUkdUgcJV9vSw9oB82LMKxj6bfWcYwpqF7rWcFFlO_0ZL5D3--cKBszgIo4j3rns3_h3tbJbXWIRJcx8y3Gwq7dRfZrsmFh6g3Q">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-lg">
+                                <span class="text-white font-bold text-headline-sm">Listing Preview</span>
+                                <p class="text-white/80 text-body-sm">Your property will look like this to potential
+                                    tenants.</p>
+                            </div>
+                        </div>
+                        <div class="p-lg space-y-md">
+                            <div class="flex justify-between items-start">
+                                <div class="h-6 w-48 bg-surface-container-highest rounded animate-pulse"></div>
+                                <div class="h-6 w-16 bg-surface-container-highest rounded animate-pulse"></div>
+                            </div>
+                            <div class="space-y-xs">
+                                <div class="h-4 w-full bg-surface-container-high rounded animate-pulse"></div>
+                                <div class="h-4 w-2/3 bg-surface-container-high rounded animate-pulse"></div>
+                            </div>
+                            <div class="pt-sm border-t border-outline-variant flex gap-md">
+                                <div class="h-8 w-20 bg-surface-container rounded-full animate-pulse"></div>
+                                <div class="h-8 w-20 bg-surface-container rounded-full animate-pulse"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="bg-primary-container/10 p-lg rounded-2xl border border-primary-container/20 flex gap-md">
+                        <span class="material-symbols-outlined text-primary"
+                            style="font-variation-settings: 'FILL' 1;">info</span>
+                        <div>
+                            <p class="text-on-surface font-bold text-body-md">Did you know?</p>
+                            <p class="text-on-surface-variant text-body-sm">Properties with precise names and clear
+                                types get 40% more engagement in the first 24 hours.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script>
+        function selectType(type) {
+            const roomBtn = document.getElementById('type-room');
+            const flatBtn = document.getElementById('type-flat');
+
+            if (type === 'room') {
+                roomBtn.classList.remove('border-outline-variant', 'text-on-surface-variant', 'bg-surface-container-lowest');
+                roomBtn.classList.add('border-primary', 'text-primary', 'bg-primary/5');
+                roomBtn.querySelector('span').style.fontVariationSettings = "'FILL' 1";
+
+                flatBtn.classList.add('border-outline-variant', 'text-on-surface-variant', 'bg-surface-container-lowest');
+                flatBtn.classList.remove('border-primary', 'text-primary', 'bg-primary/5');
+                flatBtn.querySelector('span').style.fontVariationSettings = "'FILL' 0";
+            } else {
+                flatBtn.classList.remove('border-outline-variant', 'text-on-surface-variant', 'bg-surface-container-lowest');
+                flatBtn.classList.add('border-primary', 'text-primary', 'bg-primary/5');
+                flatBtn.querySelector('span').style.fontVariationSettings = "'FILL' 1";
+
+                roomBtn.classList.add('border-outline-variant', 'text-on-surface-variant', 'bg-surface-container-lowest');
+                roomBtn.classList.remove('border-primary', 'text-primary', 'bg-primary/5');
+                roomBtn.querySelector('span').style.fontVariationSettings = "'FILL' 0";
+            }
+        }
+    </script>
+
+
+</body>
+
+</html>
