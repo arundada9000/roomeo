@@ -1,0 +1,22 @@
+DO NOT:
+- invent fake APIs
+- create placeholder architecture
+- use deprecated Next.js patterns
+- create unnecessary abstractions
+- generate giant monolithic files
+- use fake data in production logic
+- mix client/server responsibilities incorrectly
+- create unoptimized map rendering
+- use excessive client-side rendering
+- use weak typing
+- skip loading/error states
+
+ALWAYS:
+- explain architectural decisions
+- keep files modular
+- use production-safe patterns
+- optimize for scalability
+- optimize for mobile
+- optimize for accessibility
+- optimize for SEO
+- optimize for maintainability

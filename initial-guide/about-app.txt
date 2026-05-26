@@ -1,0 +1,335 @@
+Brand Name
+
+ROOMEO
+
+Primary Tagline
+
+Find your space nearby.
+
+Secondary Marketing Line
+
+Discover nearby rooms and flats with real-time availability, smart filters, and map-first exploration.
+
+4. App Description (Professional Grade)
+Short Description (Store / Meta)
+
+Roomeo helps you discover nearby rooms and flats instantly using live maps, smart filters, and real-time availability.
+
+Medium Description
+
+Roomeo is a modern room and flat discovery platform designed for fast, location-based searching. Explore nearby available spaces using interactive maps, advanced filters, verified listings, and rich property details — all optimized for a seamless mobile-first experience.
+
+Full Professional Description
+
+Roomeo is a next-generation room and flat finder platform built for modern urban living.
+
+Using real-time maps, advanced filtering, and intelligent location-based discovery, Roomeo helps users instantly find nearby available rooms and flats that match their lifestyle, budget, and preferences.
+
+Users can explore listings with detailed amenities, high-quality images, videos, pricing information, utility availability, and location insights — all through a lightning-fast mobile-first experience.
+
+Landlords can easily manage properties, publish available rooms, upload media, and connect with potential tenants through a streamlined dashboard.
+
+Designed with performance, simplicity, and trust at its core, Roomeo combines modern UX, spatial intelligence, and scalable architecture to redefine how people discover living spaces.
+5. Core Brand Values
+1. Speed
+
+Instant discovery and fast interactions.
+
+2. Trust
+
+Verified listings and transparent information.
+
+3. Simplicity
+
+No clutter. No confusion.
+
+4. Accessibility
+
+Easy for everyone to use.
+
+5. Spatial Intelligence
+
+Map-first smart discovery.
+
+6. Brand Personality
+
+Roomeo should feel:
+
+Trait	Description
+Modern	Clean and contemporary
+Friendly	Human and approachable
+Reliable	Trustworthy and stable
+Smart	Intelligent filtering and discovery
+Lightweight	Fast and uncluttered
+Urban	Designed for modern city living
+7. Tone of Voice
+Communication Style
+clear
+calm
+modern
+concise
+confident
+
+Avoid:
+
+corporate jargon
+overhype
+meme language
+excessive friendliness
+8. Design Direction
+Visual Style
+minimal
+spatial
+airy
+premium
+map-oriented
+mobile-first
+
+Inspired by:
+
+Airbnb
+Linear
+Uber
+Vercel
+Apple Maps
+Notion
+9. Professional Color Palette
+
+Here is a production-grade scalable palette.
+
+PRIMARY PALETTE
+Primary Blue
+
+Used for:
+
+CTAs
+interactive elements
+highlights
+active states
+--primary: #2563EB;
+Primary Hover
+--primary-hover: #1D4ED8;
+Accent Teal
+
+Used sparingly for:
+
+live states
+availability
+active map indicators
+--accent: #14B8A6;
+Accent Hover
+--accent-hover: #0F766E;
+NEUTRAL PALETTE
+Background
+--background: #F8FAFC;
+Surface
+--surface: #FFFFFF;
+Elevated Surface
+--surface-elevated: #FFFFFFCC;
+Border
+--border: #E2E8F0;
+Divider
+--divider: #CBD5E1;
+TEXT COLORS
+Primary Text
+--text-primary: #0F172A;
+Secondary Text
+--text-secondary: #475569;
+Muted Text
+--text-muted: #94A3B8;
+STATUS COLORS
+Success
+--success: #22C55E;
+Warning
+--warning: #F59E0B;
+Error
+--error: #EF4444;
+Info
+--info: #3B82F6;
+DARK MODE PALETTE
+Dark Background
+--dark-background: #020617;
+Dark Surface
+--dark-surface: #0F172A;
+Dark Elevated
+--dark-elevated: #111827;
+Dark Border
+--dark-border: #1E293B;
+Dark Text
+--dark-text: #F8FAFC;
+10. Gradient System
+Primary Gradient
+background: linear-gradient(
+  135deg,
+  #2563EB 0%,
+  #14B8A6 100%
+);
+Hero Gradient
+background: linear-gradient(
+  180deg,
+  rgba(37,99,235,0.08) 0%,
+  rgba(20,184,166,0.04) 100%
+);
+11. Typography System
+Primary Font
+
+Inter
+
+Secondary
+
+Geist
+
+Font Scale
+--text-xs: 12px;
+--text-sm: 14px;
+--text-md: 16px;
+--text-lg: 18px;
+--text-xl: 20px;
+--text-2xl: 24px;
+--text-3xl: 30px;
+--text-4xl: 36px;
+--text-5xl: 48px;
+12. Border Radius System
+--radius-sm: 8px;
+--radius-md: 12px;
+--radius-lg: 16px;
+--radius-xl: 24px;
+--radius-full: 9999px;
+13. Shadow System
+Soft Shadow
+box-shadow:
+0 1px 2px rgba(15, 23, 42, 0.04),
+0 4px 12px rgba(15, 23, 42, 0.06);
+Elevated Shadow
+box-shadow:
+0 8px 24px rgba(15, 23, 42, 0.08);
+14. Animation Language
+
+Motion should feel:
+
+soft
+springy
+responsive
+subtle
+Timing
+--transition-fast: 150ms;
+--transition-normal: 250ms;
+--transition-slow: 400ms;
+15. Iconography
+
+Use:
+
+Lucide Icons
+
+Style:
+
+outlined
+rounded
+minimal
+
+Avoid:
+
+filled cartoon icons
+skeuomorphic icons
+16. UI Principles
+PRIORITIES
+1. Map-first UX
+
+Maps should dominate discovery.
+
+2. Thumb-friendly
+
+All important interactions reachable on mobile.
+
+3. Breathing space
+
+Avoid clutter.
+
+4. Speed perception
+
+Everything should feel instant.
+
+5. Hierarchy clarity
+
+Focus on room info and actions.
+
+17. Core Product Feeling
+
+Roomeo should feel like:
+
+“The fastest and cleanest way to find a nearby room.”
+
+That feeling should guide:
+
+branding
+UI
+animations
+architecture
+performance
+copywriting
+onboarding
+interactions
+18. Suggested Landing Hero
+Headline
+
+Find your next room nearby.
+
+Subheadline
+
+Explore verified rooms and flats around you with live maps, smart filters, and real-time availability.
+
+CTA Buttons
+Find Rooms
+List Your Property
+19. Recommended Logo Direction
+Main Concept
+
+Minimal:
+
+map pin
+doorway shape
+subtle “R”
+rounded geometry
+
+Style:
+
+flat
+geometric
+scalable
+app-icon friendly
+20. Final Professional Brand Package
+Name
+
+ROOMEO
+
+Tagline
+
+Find your space nearby.
+
+Positioning
+
+Map-first room and flat discovery platform.
+
+Personality
+
+Modern • Fast • Trustworthy • Spatial • Minimal
+
+Primary Colors
+
+Blue + Slate + Teal
+
+Typography
+
+Inter + Geist
+
+Motion
+
+Smooth spatial transitions
+
+UX Direction
+
+Airbnb × Uber Maps × Linear
+
+Core Promise
+
+Instant nearby room discovery.

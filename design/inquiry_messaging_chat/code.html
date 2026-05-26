@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #e2e8f0;
+            border-radius: 10px;
+        }
+        .glass-panel {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#943700",
+                        "surface-tint": "#0053db",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "on-primary-fixed": "#00174b",
+                        "inverse-on-surface": "#f0f0fb",
+                        "surface-dim": "#d9d9e5",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-container": "#eeefff",
+                        "surface-container": "#ededf9",
+                        "tertiary-fixed": "#ffdbcd",
+                        "on-primary": "#ffffff",
+                        "inverse-primary": "#b4c5ff",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "inverse-surface": "#2e3039",
+                        "surface-bright": "#faf8ff",
+                        "primary-container": "#2563eb",
+                        "on-tertiary-fixed": "#360f00",
+                        "error": "#ba1a1a",
+                        "on-background": "#191b23",
+                        "on-surface": "#191b23",
+                        "secondary": "#565e74",
+                        "tertiary-fixed-dim": "#ffb596",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "on-secondary-fixed": "#131b2e",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#7d2d00",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "background": "#faf8ff",
+                        "surface-variant": "#e1e2ed",
+                        "on-error-container": "#93000a",
+                        "on-secondary-container": "#5c647a",
+                        "secondary-fixed": "#dae2fd",
+                        "primary": "#004ac6",
+                        "secondary-container": "#dae2fd",
+                        "outline-variant": "#c3c6d7",
+                        "surface": "#faf8ff",
+                        "surface-container-low": "#f3f3fe",
+                        "on-tertiary-container": "#ffede6",
+                        "tertiary-container": "#bc4800",
+                        "on-error": "#ffffff",
+                        "primary-fixed": "#dbe1ff",
+                        "on-surface-variant": "#434655",
+                        "error-container": "#ffdad6",
+                        "surface-container-highest": "#e1e2ed",
+                        "outline": "#737686",
+                        "surface-container-high": "#e7e7f3"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "3xl": "64px",
+                        "sm": "12px",
+                        "xl": "32px",
+                        "xs": "4px",
+                        "container-max": "1280px",
+                        "gutter": "16px",
+                        "margin-desktop": "32px",
+                        "lg": "24px",
+                        "2xl": "48px",
+                        "margin-mobile": "16px",
+                        "base": "8px",
+                        "md": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Geist"],
+                        "headline-xl": ["Geist"],
+                        "headline-lg": ["Geist"],
+                        "headline-lg-mobile": ["Geist"],
+                        "label-md": ["Geist"],
+                        "body-md": ["Geist"],
+                        "headline-xl-mobile": ["Geist"],
+                        "headline-sm": ["Geist"],
+                        "body-sm": ["Geist"],
+                        "body-lg": ["Geist"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "headline-xl": ["40px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.03em", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["26px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "label-md": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400"}],
+                        "headline-xl-mobile": ["32px", {"lineHeight": "1.1", "fontWeight": "700"}],
+                        "headline-sm": ["20px", {"lineHeight": "1.4", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col font-body-md">
+<!-- Top AppBar (JSON Logic: name: TopAppBar) -->
+<header class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop h-16 z-40 backdrop-blur-xl bg-surface/80 dark:bg-on-surface/80 shadow-sm sticky top-0">
+<div class="flex items-center gap-sm">
+<button aria-label="Back" class="hover:opacity-80 transition-opacity active:scale-95 duration-100 text-secondary">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<div class="flex items-center gap-sm">
+<div class="relative w-10 h-10 rounded-full overflow-hidden border border-outline-variant">
+<img alt="Alex Rivera" class="w-full h-full object-cover" data-alt="A professional headshot of Alex Rivera, a property manager with a warm and approachable expression. He has short dark hair and is wearing a crisp white shirt against a neutral, high-end studio background with soft cinematic lighting. The image maintains a clean, modern aesthetic suitable for a premium real estate platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrPYpeogvs7QAGlEjCOMHz-xPDI4rrSusyaVE0VnvG4pNYyB2JxrkozwUZoNqsMmtAFeJro6BEoAxTclcUz_BkohqKDtPyrV8QCYY2dH0RDIWbX6zaraVnVEKqsBrXT3GOb1DN0ZgJEB0TYjysoWIbovQf6KCpA3LV1HqVM6tBY6OWxNKNZu-JUVmEEcMbaWYLgvbMGs7fB3D1NG9RijWR67mgL0injFLjw0hZkpvuMl8U4xJZhcoW1KF3HX6Wv-AkJTZlcHBQPA"/>
+<div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-surface rounded-full"></div>
+</div>
+<div class="flex flex-col">
+<span class="text-label-md font-label-md font-bold text-primary">ALEX RIVERA</span>
+<span class="text-body-sm font-body-sm text-secondary">Premium Member • Online</span>
+</div>
+</div>
+</div>
+<div class="hidden md:flex items-center gap-lg">
+<div class="text-primary font-semibold text-label-md font-label-md">INQUIRY CHAT</div>
+</div>
+<div class="flex items-center gap-sm">
+<button class="hover:opacity-80 transition-opacity active:scale-95 duration-100 text-primary">
+<span class="material-symbols-outlined" data-icon="call">call</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-primary-container/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="person">person</span>
+</div>
+</div>
+</header>
+<!-- Content Canvas -->
+<main class="flex-grow flex flex-col max-w-container-max mx-auto w-full px-margin-mobile md:px-margin-desktop py-md md:py-lg overflow-hidden h-[calc(100vh-128px)]">
+<!-- Property Context Header (Asymmetric Bento-ish element) -->
+<div class="mb-lg bg-surface-container-low rounded-xl p-md border border-outline-variant flex items-center gap-md shadow-sm">
+<div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A stunning modern high-end residential living room with floor-to-ceiling windows overlooking a sunset city skyline. The interior features minimalist furniture, natural oak flooring, and soft, warm ambient lighting that creates a luxurious and inviting atmosphere. The visual style is crisp and high-definition, emphasizing premium craftsmanship." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBH0-OxtzEbbJjA7UbAxDqpwAztUe_Xg8eQiM-g71naZ4kgBwGaOm8_vhlGGyjyORzuYYqMYcAwI5hWN1XhjHruyktHmUulXaLJ3K_Kslb7SD1njSMXZkJ4ZF8_5ERPStTM6NPdilXgc22wyVBkrs3Vl5kCE-JsioE_4WClvodQDISGscfyUX5to_hDk8Tm8Tzc-lyaZ32bRU6xZk0I-1Ed4l4AaCjhWHJsp2ZrPsd1avLKDyBeiXPvFzFNiEJRaq3yFWq9J5XhuA"/>
+</div>
+<div class="flex-grow">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">The Glass House</h3>
+<p class="text-body-sm font-body-sm text-secondary">Avenue 12, West Hills • $4,500/mo</p>
+<div class="flex gap-xs mt-xs">
+<span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container text-[10px] font-bold rounded-full uppercase tracking-wider">Available Oct 1st</span>
+</div>
+</div>
+<button class="hidden sm:flex items-center gap-xs text-primary font-bold text-label-md hover:underline">
+                View Listing <span class="material-symbols-outlined text-sm">open_in_new</span>
+</button>
+</div>
+<!-- Chat Area -->
+<div class="flex-grow overflow-y-auto custom-scrollbar flex flex-col gap-lg pr-2 pb-lg" id="chat-container">
+<!-- Timestamp Divider -->
+<div class="flex justify-center my-md">
+<span class="text-[10px] font-bold text-outline bg-surface-container px-3 py-1 rounded-full uppercase tracking-widest">Today</span>
+</div>
+<!-- Landlord Message -->
+<div class="flex flex-col gap-xs max-w-[85%] md:max-w-[70%] self-start">
+<div class="bg-surface-container-highest text-on-surface p-md rounded-2xl rounded-tl-none border border-outline-variant shadow-sm">
+<p class="text-body-md font-body-md">Hello! Thanks for your interest in The Glass House. It's truly a unique property. Are you looking to move in by October or November?</p>
+</div>
+<span class="text-[10px] text-secondary ml-1">10:42 AM</span>
+</div>
+<!-- User Message -->
+<div class="flex flex-col gap-xs max-w-[85%] md:max-w-[70%] self-end">
+<div class="bg-primary text-on-primary p-md rounded-2xl rounded-tr-none shadow-md">
+<p class="text-body-md font-body-md">Hi Alex! I'm actually looking to move in as soon as possible, ideally before the 15th of October. Is there any flexibility on the move-in date?</p>
+</div>
+<span class="text-[10px] text-secondary mr-1 self-end">10:45 AM • Read</span>
+</div>
+<!-- Landlord Message -->
+<div class="flex flex-col gap-xs max-w-[85%] md:max-w-[70%] self-start">
+<div class="bg-surface-container-highest text-on-surface p-md rounded-2xl rounded-tl-none border border-outline-variant shadow-sm">
+<p class="text-body-md font-body-md">That should be fine! The current tenants are moving out on the 10th. We just need a couple of days for professional cleaning.</p>
+</div>
+<span class="text-[10px] text-secondary ml-1">10:48 AM</span>
+</div>
+<!-- System / Info Bubble -->
+<div class="flex justify-center">
+<div class="bg-secondary-container/30 px-md py-sm rounded-xl border border-secondary-container text-center">
+<p class="text-body-sm font-body-sm text-on-secondary-container">Alex sent a <span class="font-bold">Virtual Tour Invite</span></p>
+<button class="mt-sm px-lg py-sm bg-primary text-on-primary rounded-full text-label-md font-bold active:scale-95 transition-transform">JOIN TOUR</button>
+</div>
+</div>
+</div>
+<!-- Input Section -->
+<div class="mt-auto pt-md flex flex-col gap-md sticky bottom-0 bg-background pb-md">
+<!-- Smart Replies -->
+<div class="flex gap-sm overflow-x-auto pb-sm no-scrollbar">
+<button class="flex-shrink-0 px-md py-2 bg-slate-100 hover:bg-slate-200 text-secondary text-label-md font-label-md rounded-full border border-slate-200 transition-colors whitespace-nowrap">
+                    Is it still available?
+                </button>
+<button class="flex-shrink-0 px-md py-2 bg-slate-100 hover:bg-slate-200 text-secondary text-label-md font-label-md rounded-full border border-slate-200 transition-colors whitespace-nowrap">
+                    When can I visit?
+                </button>
+<button class="flex-shrink-0 px-md py-2 bg-slate-100 hover:bg-slate-200 text-secondary text-label-md font-label-md rounded-full border border-slate-200 transition-colors whitespace-nowrap">
+                    Send my profile
+                </button>
+<button class="flex-shrink-0 px-md py-2 bg-slate-100 hover:bg-slate-200 text-secondary text-label-md font-label-md rounded-full border border-slate-200 transition-colors whitespace-nowrap">
+                    What utilities are included?
+                </button>
+</div>
+<!-- Message Input Area -->
+<div class="flex items-end gap-sm bg-surface-container-high p-xs rounded-3xl border border-outline-variant focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/10 transition-all">
+<button class="w-10 h-10 flex items-center justify-center text-secondary hover:text-primary transition-colors" title="Attach documents">
+<span class="material-symbols-outlined" data-icon="attach_file">attach_file</span>
+</button>
+<textarea class="flex-grow bg-transparent border-none focus:ring-0 text-body-md py-3 px-1 max-h-32 resize-none overflow-y-auto custom-scrollbar" id="message-input" placeholder="Type a message..." rows="1"></textarea>
+<button class="w-10 h-10 flex items-center justify-center bg-primary text-on-primary rounded-full hover:opacity-90 active:scale-95 transition-all shadow-md group" id="send-btn">
+<span class="material-symbols-outlined" data-icon="send">send</span>
+</button>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation (JSON Logic: name: BottomNavBar - Transactional Context Suppressed) -->
+<!-- Suppression logic: This is a sub-page focused journey (Messaging), BottomNavBar is hidden for focus -->
+<script>
+        // Micro-interaction for Textarea Auto-resize
+        const textarea = document.getElementById('message-input');
+        textarea.addEventListener('input', () => {
+            textarea.style.height = 'auto';
+            textarea.style.height = textarea.scrollHeight + 'px';
+        });
+
+        // Simple Send Simulation
+        const sendBtn = document.getElementById('send-btn');
+        const chatContainer = document.getElementById('chat-container');
+
+        sendBtn.addEventListener('click', () => {
+            const text = textarea.value.trim();
+            if (text) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'flex flex-col gap-xs max-w-[85%] md:max-w-[70%] self-end animate-in fade-in slide-in-from-bottom-2 duration-300';
+                messageDiv.innerHTML = `
+                    <div class="bg-primary text-on-primary p-md rounded-2xl rounded-tr-none shadow-md">
+                        <p class="text-body-md font-body-md">${text}</p>
+                    </div>
+                    <span class="text-[10px] text-secondary mr-1 self-end">Just now</span>
+                `;
+                chatContainer.appendChild(messageDiv);
+                textarea.value = '';
+                textarea.style.height = 'auto';
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }
+        });
+
+        // Handle enter key to send
+        textarea.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendBtn.click();
+            }
+        });
+
+        // Auto-scroll to bottom on load
+        window.onload = () => {
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        };
+    </script>
+</body></html>

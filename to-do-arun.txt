@@ -1,0 +1,73 @@
+================================================================
+  ROOMEO — YOUR TO-DO LIST (Arun)
+================================================================
+
+These are the things YOU need to set up on your machine.
+I (the AI) will handle all the code, UI, and architecture.
+
+================================================================
+  1. INSTALL POSTGRESQL + POSTGIS
+================================================================
+
+Option A: Using Docker (Recommended — Easiest)
+  1. Install Docker Desktop: https://www.docker.com/products/docker-desktop/
+  2. Open your terminal and run:
+     docker run --name roomeo-db -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=roomeo -p 5432:5432 -d postgis/postgis
+  3. That's it! Your database is running.
+
+Option B: Install PostgreSQL Manually
+  1. Download PostgreSQL: https://www.postgresql.org/download/windows/
+  2. During installation, set password to: postgres
+  3. After install, open pgAdmin or psql and create a database called: roomeo
+  4. Enable PostGIS extension by running:
+     CREATE EXTENSION postgis;
+
+Your .env file is already configured to connect to:
+  postgresql://postgres:postgres@localhost:5432/roomeo?schema=public
+
+================================================================
+  2. PUSH THE DATABASE SCHEMA
+================================================================
+
+Once PostgreSQL is running, open a terminal in the roomeo folder and run:
+
+  npx prisma db push
+
+This will create all the tables (User, Property, Unit, etc.) in your database.
+
+================================================================
+  3. (OPTIONAL) VIEW YOUR DATABASE
+================================================================
+
+After pushing the schema, you can explore your DB visually:
+
+  npx prisma studio
+
+This opens a web UI at http://localhost:5555 where you can see all tables and data.
+
+================================================================
+  4. ENVIRONMENT VARIABLES YOU'LL NEED LATER
+================================================================
+
+These are NOT needed right now, but you'll need them eventually:
+
+  BETTER_AUTH_SECRET=<generate-a-random-32-char-string>
+  BETTER_AUTH_URL=http://localhost:3000
+
+To generate a secret, run:
+  node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+
+Then add it to your .env file.
+
+================================================================
+  SUMMARY — QUICK START
+================================================================
+
+Step 1: Start PostgreSQL (Docker or manual install)
+Step 2: Run `npx prisma db push` in the roomeo folder
+Step 3: Run `npm run dev` to start the app
+Step 4: Open http://localhost:3000
+
+That's it! Everything else is handled by the code.
+
+================================================================

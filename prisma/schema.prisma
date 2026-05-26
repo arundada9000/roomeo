@@ -1,0 +1,202 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
+}
+
+datasource db {
+  provider   = "postgresql"
+  extensions = [postgis]
+}
+
+enum Role {
+  ADMIN
+  LANDLORD
+  USER
+}
+
+enum ListingStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum RoomType {
+  SINGLE_ROOM
+  DOUBLE_ROOM
+  SHARED_ROOM
+  FLAT
+  STUDIO
+  PG
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String
+  email         String    @unique
+  emailVerified Boolean   @default(false)
+  image         String?
+  role          Role      @default(USER)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  sessions      Session[]
+  accounts      Account[]
+  
+  properties    Property[]
+  favorites     Favorite[]
+  reviews       Review[]
+  inquiries     Inquiry[]
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  expiresAt DateTime
+  token     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([token])
+}
+
+model Account {
+  id                    String    @id @default(cuid())
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+}
+
+model Verification {
+  id         String    @id @default(cuid())
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime? @default(now())
+  updatedAt  DateTime? @updatedAt
+}
+
+model Property {
+  id          String   @id @default(cuid())
+  landlordId  String
+  landlord    User     @relation(fields: [landlordId], references: [id], onDelete: Cascade)
+  
+  title       String
+  description String?
+  address     String
+  city        String
+  state       String
+  zipCode     String?
+  
+  // PostGIS location (latitude and longitude as standard fields, geo stored via raw SQL if needed for advanced queries)
+  lat         Float
+  lng         Float
+  
+  units       Unit[]
+  reviews     Review[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@index([lat, lng])
+}
+
+model Unit {
+  id              String        @id @default(cuid())
+  propertyId      String
+  property        Property      @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  
+  title           String
+  description     String?
+  type            RoomType
+  price           Float
+  currency        String        @default("INR") // Configurable
+  availableFrom   DateTime?
+  isAvailable     Boolean       @default(true)
+  status          ListingStatus @default(PENDING) // Needs admin approval
+
+  // Amenities
+  furnished       Boolean       @default(false)
+  attachedBath    Boolean       @default(false)
+  wifi            Boolean       @default(false)
+  waterIncluded   Boolean       @default(false)
+  powerIncluded   Boolean       @default(false)
+  parking         Boolean       @default(false)
+  petFriendly     Boolean       @default(false)
+  balcony         Boolean       @default(false)
+  kitchenAccess   Boolean       @default(false)
+
+  // Rules / Demographics
+  bachelorFriendly Boolean      @default(true)
+  familyFriendly   Boolean      @default(true)
+  boysOnly         Boolean      @default(false)
+  girlsOnly        Boolean      @default(false)
+  smokingAllowed   Boolean      @default(false)
+
+  media           Media[]
+  favorites       Favorite[]
+  inquiries       Inquiry[]
+
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  @@index([status])
+  @@index([price])
+}
+
+model Media {
+  id        String   @id @default(cuid())
+  unitId    String
+  unit      Unit     @relation(fields: [unitId], references: [id], onDelete: Cascade)
+  url       String
+  type      String   // IMAGE or VIDEO
+  createdAt DateTime @default(now())
+}
+
+model Favorite {
+  id        String   @id @default(cuid())
+  userId    String
+  unitId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  unit      Unit     @relation(fields: [unitId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, unitId])
+}
+
+model Review {
+  id          String   @id @default(cuid())
+  userId      String
+  propertyId  String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  property    Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  rating      Int
+  comment     String?
+  createdAt   DateTime @default(now())
+}
+
+model Inquiry {
+  id        String   @id @default(cuid())
+  userId    String
+  unitId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  unit      Unit     @relation(fields: [unitId], references: [id], onDelete: Cascade)
+  message   String
+  status    String   @default("OPEN")
+  createdAt DateTime @default(now())
+}

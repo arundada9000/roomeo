@@ -1,0 +1,33 @@
+The UI must feel like a premium modern mobile-first application.
+
+The experience should combine:
+- Airbnb spatial browsing
+- Uber map interactions
+- Linear smoothness
+- Apple-level spacing
+- Vercel minimalism
+
+The UI should feel:
+- fast
+- elegant
+- breathable
+- spatial
+- touch-friendly
+- highly polished
+
+Prioritize:
+- spacing
+- typography
+- hierarchy
+- interaction quality
+- animation smoothness
+- map usability
+
+Avoid:
+- clutter
+- oversized cards
+- visual noise
+- generic admin UI
+- outdated dashboard styles
+
+Every screen should feel intentional and premium.

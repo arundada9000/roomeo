@@ -1,0 +1,713 @@
+You are a senior staff-level software architect, product designer, UX engineer, and performance-focused fullstack engineer.
+
+Your task is to build a production-grade modern room/flat finder platform using Next.js ecosystem with enterprise-grade architecture, clean scalable code, excellent UX, mobile-first design, geospatial intelligence, PWA support, and high performance.
+
+====================================================
+PROJECT OVERVIEW
+====================================================
+
+The platform is an advanced room/flat finder system where:
+
+1. Admins manage the entire platform
+2. Landlords upload/manage rooms and flats
+3. Users search nearby available rooms/flats using maps and advanced filtering
+
+This is NOT a generic real-estate website.
+The platform must feel:
+- instant
+- mobile-first
+- map-first
+- modern
+- minimal
+- highly responsive
+- trustworthy
+- spatially intelligent
+
+The core experience is:
+“Find nearby available rooms/flats quickly using live location + smart filters.”
+
+The app should feel like a mix of:
+- Airbnb
+- Uber Maps
+- Google Maps
+- modern SaaS dashboard
+- high-end mobile application
+
+====================================================
+PRIMARY GOALS
+====================================================
+
+1. Lightning fast performance
+2. Mobile-first UX
+3. Excellent map experience
+4. Highly scalable architecture
+5. Clean maintainable codebase
+6. PWA installability
+7. Smooth animations
+8. Advanced filtering
+9. SEO optimized
+10. Production-ready quality
+11. Accessibility compliance
+12. Future scalability
+
+====================================================
+TECH STACK
+====================================================
+
+MANDATORY STACK:
+
+Frontend:
+- Next.js 15 App Router
+- TypeScript
+- TailwindCSS
+- shadcn/ui
+- Framer Motion
+- Zustand
+- TanStack Query
+- React Hook Form
+- Zod
+
+Backend:
+- Next.js server actions + route handlers
+- tRPC
+- Prisma ORM
+
+Database:
+- PostgreSQL
+- PostGIS extension
+
+Search:
+- Typesense
+
+Caching:
+- Redis / Upstash Redis
+
+Maps:
+- Mapbox GL JS
+
+Auth:
+- Better Auth or Clerk
+
+Storage:
+- Cloudflare R2 or AWS S3
+
+Deployment:
+- Vercel
+- Cloudflare CDN
+
+PWA:
+- next-pwa
+- service workers
+- offline caching
+
+====================================================
+ARCHITECTURE REQUIREMENTS
+====================================================
+
+DO NOT create messy architecture.
+
+Use:
+- feature-based modular architecture
+- scalable folder structure
+- reusable components
+- strict typing
+- proper separation of concerns
+- domain-driven thinking
+
+AVOID:
+- duplicated logic
+- oversized components
+- prop drilling
+- deeply nested spaghetti structures
+- unnecessary abstraction
+- premature microservices
+
+Use a monolithic modular architecture initially.
+
+====================================================
+FOLDER STRUCTURE
+====================================================
+
+Create clean scalable architecture like:
+
+src/
+  app/
+  components/
+    ui/
+    shared/
+    map/
+    listing/
+    forms/
+  features/
+    auth/
+    listings/
+    maps/
+    search/
+    landlord/
+    admin/
+    user/
+  server/
+    db/
+    api/
+    services/
+  hooks/
+  stores/
+  lib/
+  types/
+  styles/
+  config/
+
+====================================================
+USER ROLES
+====================================================
+
+1. ADMIN
+- manage users
+- manage landlords
+- moderate listings
+- analytics dashboard
+- reports management
+- featured listings
+- verification system
+- fraud detection moderation
+- CMS management
+
+2. LANDLORD
+- create property
+- create rooms/flats under property
+- upload images/videos
+- manage availability
+- pricing management
+- inquiry management
+- dashboard analytics
+
+3. USER
+- search nearby rooms
+- use live map
+- apply advanced filters
+- save favorites
+- contact landlord
+- compare listings
+- get notifications
+- use route navigation
+
+====================================================
+DATA MODELING
+====================================================
+
+VERY IMPORTANT:
+
+Do NOT model only “Property”.
+
+Use hierarchy:
+
+Landlord
+  -> Property
+      -> Units(Rooms/Flats)
+
+Each room/unit must have:
+- unique pricing
+- unique availability
+- unique amenities
+- unique media
+- unique occupancy rules
+
+====================================================
+CORE FEATURES
+====================================================
+
+AUTHENTICATION:
+- secure auth
+- role-based access
+- social login
+- email verification
+- phone verification
+- session security
+
+MAP EXPERIENCE:
+- live location detection
+- nearby listings
+- marker clustering
+- viewport-based fetching
+- smooth interactions
+- map/list synchronized state
+- bottom sheet interactions on mobile
+
+FILTER SYSTEM:
+Build advanced dynamic filtering.
+
+Filters include:
+- price range
+- room type
+- furnished/unfurnished
+- attached bathroom
+- wifi
+- water included
+- electricity included
+- parking
+- pet friendly
+- bachelor friendly
+- family friendly
+- boys only
+- girls only
+- available now
+- radius search
+- distance from current location
+- nearby schools/hospitals
+- balcony
+- rooftop
+- CCTV
+- hot water
+- kitchen availability
+- smoking allowed
+
+Search should feel instant.
+
+====================================================
+DATABASE REQUIREMENTS
+====================================================
+
+Use PostgreSQL + PostGIS.
+
+Must support:
+- geospatial indexing
+- radius search
+- map bounding queries
+- location proximity search
+- optimized geo queries
+
+Use Prisma cleanly.
+
+Add proper indexes everywhere.
+
+====================================================
+SEARCH ENGINE REQUIREMENTS
+====================================================
+
+Use Typesense for:
+- instant filtering
+- autocomplete
+- fuzzy search
+- typo tolerance
+- geo search
+- ranking relevance
+
+====================================================
+PERFORMANCE REQUIREMENTS
+====================================================
+
+Performance is CRITICAL.
+
+Requirements:
+- Lighthouse score 95+
+- mobile optimized
+- lazy loading
+- route-level code splitting
+- image optimization
+- server components where possible
+- virtualization for long lists
+- viewport-based fetching
+- edge caching
+- minimal client JS
+- memoization where necessary
+
+DO NOT overuse client components.
+
+====================================================
+MAP OPTIMIZATION REQUIREMENTS
+====================================================
+
+VERY IMPORTANT:
+
+Never load all listings at once.
+
+Only fetch listings:
+- inside visible viewport
+- within radius
+- paginated
+
+Use:
+- marker clustering
+- debounced fetching
+- optimized rerenders
+
+====================================================
+MEDIA SYSTEM
+====================================================
+
+Listings support:
+- multiple images
+- videos
+- 360 tours (future-ready)
+
+Use:
+- drag-and-drop uploads
+- compression
+- WebP/AVIF
+- progressive loading
+- blurred placeholders
+
+====================================================
+PWA REQUIREMENTS
+====================================================
+
+Must feel like native app.
+
+Implement:
+- install prompt
+- offline support
+- cached recent searches
+- cached favorites
+- splash screen
+- push notifications
+- fast startup
+
+====================================================
+SEO REQUIREMENTS
+====================================================
+
+SEO is extremely important.
+
+Implement:
+- dynamic metadata
+- OpenGraph
+- Twitter cards
+- sitemap
+- robots.txt
+- canonical URLs
+- structured data
+- schema.org
+- fast indexing
+- semantic HTML
+
+Use server rendering properly.
+
+====================================================
+UI/UX REQUIREMENTS
+====================================================
+
+DESIGN STYLE:
+- premium
+- modern
+- clean
+- minimal
+- elegant
+- spatial
+- mobile-first
+- highly touch-friendly
+
+DESIGN INSPIRATIONS:
+- Airbnb
+- Linear
+- Vercel
+- Arc Browser
+- Uber
+- Google Maps
+- Notion
+- Apple Human Interface
+- Material 3 (lightly)
+- modern fintech apps
+
+DO NOT create:
+- outdated admin templates
+- cluttered interfaces
+- generic bootstrap look
+- crowded dashboards
+
+====================================================
+MOBILE-FIRST UX
+====================================================
+
+This is primarily a mobile product.
+
+Mobile UX is PRIORITY.
+
+Implement:
+- bottom navigation
+- swipeable bottom sheets
+- sticky filters
+- smooth gestures
+- touch-friendly controls
+- floating action buttons
+- thumb-zone optimized layouts
+
+Desktop should progressively enhance mobile experience.
+
+====================================================
+VISUAL LANGUAGE
+====================================================
+
+Use:
+- soft modern shadows
+- layered surfaces
+- glassmorphism very lightly
+- subtle gradients
+- rounded corners
+- smooth transitions
+- premium spacing system
+
+Avoid:
+- heavy neumorphism
+- excessive glassmorphism
+- over-animation
+- visual clutter
+
+====================================================
+COLOR PALETTE
+====================================================
+
+PRIMARY:
+#2563EB (blue)
+
+SECONDARY:
+#0F172A (dark slate)
+
+ACCENT:
+#14B8A6 (teal)
+
+SUCCESS:
+#22C55E
+
+WARNING:
+#F59E0B
+
+ERROR:
+#EF4444
+
+BACKGROUND LIGHT:
+#F8FAFC
+
+BACKGROUND DARK:
+#020617
+
+SURFACE:
+#FFFFFF
+
+TEXT:
+#0F172A
+
+Use proper dark mode support.
+
+====================================================
+TYPOGRAPHY
+====================================================
+
+Use:
+- Inter
+- Geist
+- SF Pro fallback
+
+Typography should feel:
+- modern
+- clean
+- highly readable
+
+Use consistent hierarchy.
+
+====================================================
+ANIMATIONS
+====================================================
+
+Use Framer Motion carefully.
+
+Animations should feel:
+- subtle
+- smooth
+- premium
+- performant
+
+Use:
+- spring animations
+- shared layout transitions
+- staggered reveals
+- smooth map interactions
+- bottom sheet animations
+
+Avoid:
+- flashy animations
+- long durations
+- animation overload
+
+====================================================
+ACCESSIBILITY
+====================================================
+
+Implement:
+- keyboard navigation
+- screen reader support
+- aria labels
+- focus states
+- semantic HTML
+- color contrast compliance
+
+Accessibility is mandatory.
+
+====================================================
+ADMIN DASHBOARD
+====================================================
+
+Admin panel should include:
+- analytics
+- charts
+- moderation queue
+- reported listings
+- landlord verification
+- user management
+- listing approval system
+- fraud monitoring
+
+Design should feel like:
+- Linear
+- Stripe Dashboard
+- modern SaaS admin
+
+====================================================
+LANDLORD DASHBOARD
+====================================================
+
+Landlord should:
+- easily create listings
+- upload media
+- manage availability
+- view analytics
+- respond to inquiries
+
+UX should be extremely simple.
+
+====================================================
+LISTING PAGE REQUIREMENTS
+====================================================
+
+Each listing page must include:
+- image gallery
+- video support
+- amenities
+- map location
+- pricing
+- landlord profile
+- availability
+- room specifications
+- reviews
+- nearby places
+- contact actions
+
+====================================================
+SECURITY REQUIREMENTS
+====================================================
+
+Implement:
+- rate limiting
+- input validation
+- Zod validation
+- secure uploads
+- auth middleware
+- CSRF protection
+- XSS prevention
+- SQL injection prevention
+- role authorization
+
+====================================================
+CODING STANDARDS
+====================================================
+
+STRICT REQUIREMENTS:
+- TypeScript strict mode
+- reusable utilities
+- modular hooks
+- clean naming
+- no any types
+- proper comments only where needed
+- avoid over-commenting
+- clean imports
+- consistent formatting
+
+Use:
+- ESLint
+- Prettier
+- Husky
+- lint-staged
+
+====================================================
+STATE MANAGEMENT
+====================================================
+
+Use:
+- Zustand for UI/global state
+- TanStack Query for server state
+
+Avoid:
+- excessive context usage
+- unnecessary rerenders
+
+====================================================
+ERROR HANDLING
+====================================================
+
+Implement:
+- proper error boundaries
+- loading states
+- empty states
+- skeleton loaders
+- retry mechanisms
+- toast notifications
+
+====================================================
+ANALYTICS
+====================================================
+
+Integrate:
+- PostHog or Plausible
+- event tracking
+- funnel analytics
+- map interaction analytics
+
+====================================================
+FUTURE-READY FEATURES
+====================================================
+
+Architect system for future support of:
+- AI recommendations
+- AI search
+- roommate matching
+- booking system
+- subscriptions
+- payment gateway
+- chat system
+- push notifications
+- AR navigation
+- multilingual support
+
+====================================================
+IMPORTANT DEVELOPMENT RULES
+====================================================
+
+1. Prioritize clean architecture over quick hacks
+2. Prioritize mobile UX over desktop UX
+3. Prioritize performance over visual excess
+4. Prioritize maintainability over clever code
+5. Prioritize scalability over shortcuts
+6. Avoid unnecessary dependencies
+7. Avoid overengineering
+8. Avoid deeply nested components
+9. Build reusable systems
+10. Think like a production startup product
+
+====================================================
+EXPECTED OUTPUT
+====================================================
+
+Generate:
+- production-grade architecture
+- scalable folder structure
+- database schema
+- Prisma models
+- API structure
+- reusable component system
+- responsive layouts
+- mobile-first UX
+- optimized map architecture
+- PWA implementation
+- SEO implementation
+- clean codebase
+
+Everything should be modern, scalable, maintainable, elegant, performant, and production-ready.
