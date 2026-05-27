@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { GeistMono } from "geist/font/mono";
+import { Toaster } from "sonner";
 import BottomNav from "@/components/shared/bottom-nav";
 import ServiceWorkerRegistration from "@/components/shared/service-worker-registration";
 import ScrollToTopButton from "@/components/shared/scroll-to-top-button";
@@ -14,7 +15,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Roomeo — Find Your Space Nearby",
+    default: "Roomeo - Find Your Space Nearby",
     template: "%s | Roomeo",
   },
   description:
@@ -31,7 +32,7 @@ export const metadata: Metadata = {
   authors: [{ name: "Roomeo" }],
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
   openGraph: {
-    title: "Roomeo — Find Your Space Nearby",
+    title: "Roomeo - Find Your Space Nearby",
     description:
       "Discover nearby rooms and flats with real-time availability, smart filters, and map-first exploration.",
     siteName: "Roomeo",
@@ -42,13 +43,13 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1080,
         height: 1920,
-        alt: "Roomeo — Find Your Space Nearby",
+        alt: "Roomeo - Find Your Space Nearby",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Roomeo — Find Your Space Nearby",
+    title: "Roomeo - Find Your Space Nearby",
     description:
       "Discover nearby rooms and flats with real-time availability, smart filters, and map-first exploration.",
     images: ["/og-image.png"],
@@ -103,6 +104,22 @@ export const viewport: Viewport = {
   ],
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: "Roomeo",
+  url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
+  description:
+    "Discover nearby rooms and flats with real-time availability, smart filters, and map-first exploration.",
+  applicationCategory: "RealEstateApplication",
+  operatingSystem: "Web",
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "USD",
+  },
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -114,11 +131,25 @@ export default function RootLayout({
       className={`${inter.variable} ${GeistMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className="min-h-full flex flex-col bg-background text-foreground relative">
         {children}
         <BottomNav />
         <ScrollToTopButton />
         <ServiceWorkerRegistration />
+        <Toaster
+          position="bottom-right"
+          richColors
+          closeButton
+          toastOptions={{
+            style: { borderRadius: "12px" },
+          }}
+        />
       </body>
     </html>
   );

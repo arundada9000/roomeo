@@ -94,7 +94,7 @@ export default function LandingContent() {
 
         <div className="mx-auto max-w-[1280px] px-4 pt-20 sm:px-6 sm:pt-28 lg:px-8 lg:pt-36">
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-            {/* Left — Text Content */}
+            {/* Left - Text Content */}
             <motion.div initial="hidden" animate="visible" variants={stagger}>
               <motion.div custom={0} variants={fadeUp}>
                 <span className="inline-flex items-center gap-2 rounded-full border border-primary/15 bg-primary/[0.06] px-4 py-1.5 text-sm font-semibold text-primary backdrop-blur-sm shadow-[0_0_20px_rgba(var(--primary),0.1)]">
@@ -162,7 +162,7 @@ export default function LandingContent() {
               </motion.div>
             </motion.div>
 
-            {/* Right — Room Image Showcase */}
+            {/* Right - Room Image Showcase */}
             <motion.div initial="hidden" animate="visible" variants={scaleIn} className="relative hidden lg:block h-[500px]">
               
               {/* Main Background Glow */}

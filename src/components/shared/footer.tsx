@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Globe, MessageCircle } from "lucide-react";
+import { NewsletterForm } from "./newsletter-form";
 
 const footerLinks = {
   Product: [
@@ -49,20 +50,7 @@ export default function Footer() {
               The fastest, cleanest, and most premium way to find a nearby room. Discover verified spaces with real-time availability today.
             </p>
             
-            {/* Newsletter */}
-            <div className="space-y-3">
-              <p className="text-sm font-bold text-foreground">Subscribe to our newsletter</p>
-              <div className="flex items-center max-w-sm rounded-full border border-border/50 bg-secondary/30 p-1 shadow-sm transition-all focus-within:border-primary/50 focus-within:bg-background focus-within:shadow-md">
-                <input 
-                  type="email" 
-                  placeholder="Enter your email" 
-                  className="w-full bg-transparent px-4 py-2.5 text-sm font-medium outline-none placeholder:text-muted-foreground"
-                />
-                <button className="flex h-10 items-center justify-center rounded-full bg-primary px-5 text-sm font-bold text-primary-foreground transition-transform hover:scale-105 active:scale-95 shadow-md shadow-primary/20">
-                  Subscribe
-                </button>
-              </div>
-            </div>
+            <NewsletterForm />
           </div>
 
           {/* Link Columns */}

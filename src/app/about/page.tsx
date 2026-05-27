@@ -28,7 +28,7 @@ const values = [
   {
     icon: Heart,
     title: "Tenant-Centric",
-    desc: "We build for tenants first. Zero brokerage, transparent pricing, and honest reviews — always.",
+    desc: "We build for tenants first. Zero brokerage, transparent pricing, and honest reviews - always.",
     color: "text-rose-500",
     bg: "bg-rose-500/10",
     border: "border-rose-500/20",
@@ -37,7 +37,7 @@ const values = [
   {
     icon: MapPin,
     title: "Hyperlocal",
-    desc: "We don't just list rooms — we map them. Interactive maps help you find the perfect neighborhood.",
+    desc: "We don't just list rooms - we map them. Interactive maps help you find the perfect neighborhood.",
     color: "text-blue-500",
     bg: "bg-blue-500/10",
     border: "border-blue-500/20",
@@ -326,13 +326,13 @@ export default function Page() {
                   place to live.
                 </motion.h2>
                 <motion.p variants={fadeIn} className="text-lg text-muted-foreground leading-relaxed mb-6">
-                  Roomeo connects tenants directly with verified landlords — cutting out middlemen,
+                  Roomeo connects tenants directly with verified landlords - cutting out middlemen,
                   eliminating brokerage fees, and making the entire process transparent from search
                   to move-in.
                 </motion.p>
                 <motion.p variants={fadeIn} className="text-lg text-muted-foreground leading-relaxed mb-8">
                   Whether you&apos;re a student arriving in Kathmandu for the first time, a young professional
-                  relocating to Pokhara, or a family looking for a bigger space — Roomeo makes it effortless.
+                  relocating to Pokhara, or a family looking for a bigger space - Roomeo makes it effortless.
                 </motion.p>
                 <motion.div variants={fadeIn}>
                   <Link
@@ -531,7 +531,7 @@ export default function Page() {
               Join us in reshaping rentals.
             </h2>
             <p className="relative mt-6 text-xl text-background/70 max-w-xl mx-auto font-medium">
-              Whether you&apos;re looking for a room or listing one — Roomeo is designed for you.
+              Whether you&apos;re looking for a room or listing one - Roomeo is designed for you.
             </p>
             <div className="relative mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link

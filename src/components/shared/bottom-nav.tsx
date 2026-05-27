@@ -2,18 +2,19 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Map as MapIcon, Heart, LayoutGrid, User } from "lucide-react";
+import { Map as MapIcon, Heart, Bell, User } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
+
+const tabs = [
+  { name: "Search", href: "/explore", icon: MapIcon },
+  { name: "Saved", href: "/favorites", icon: Heart },
+  { name: "Hub", href: "/hub", icon: Bell },
+  { name: "Profile", href: "/profile", icon: User },
+];
 
 export default function BottomNav() {
   const pathname = usePathname();
   const { data: session } = authClient.useSession();
-  const tabs = [
-    { name: "Search", href: "/explore", icon: MapIcon },
-    { name: "Saved", href: "/favorites", icon: Heart },
-    { name: "Dashboard", href: "/landlord", icon: LayoutGrid },
-    { name: "Profile", href: "/profile", icon: User },
-  ];
 
   return (
     <>
@@ -24,7 +25,7 @@ export default function BottomNav() {
             return (
               <Link
                 key={tab.name}
-                href={tab.href}
+                href={session ? tab.href : tab.href === "/favorites" || tab.href === "/hub" ? "/login" : tab.href}
                 className={`flex w-16 flex-col items-center justify-center gap-1 text-[11px] font-semibold transition-all ${
                   isActive ? "text-primary" : "text-muted-foreground hover:text-foreground"
                 }`}
@@ -38,7 +39,6 @@ export default function BottomNav() {
           })}
         </div>
       </div>
-      
       <div className="h-[72px] md:hidden" />
     </>
   );

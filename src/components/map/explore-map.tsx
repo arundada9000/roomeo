@@ -177,7 +177,7 @@ function PopupCard({ unit, formatPrice }: PopupCardProps) {
         <div className="flex items-center gap-2 mt-3">
           <Link
             href={`/units/${unit.id}`}
-            className="flex flex-1 items-center justify-center gap-1 rounded-lg bg-primary py-2 text-[11px] font-bold text-primary-foreground shadow-sm transition-all hover:bg-primary/90 active:scale-[0.97]"
+            className="flex flex-1 items-center justify-center gap-1 rounded-lg bg-primary py-2 text-[11px] font-bold text-white shadow-sm transition-all hover:bg-primary/90 active:scale-[0.97]"
           >
             View Details <ChevronRight className="h-3 w-3" />
           </Link>
@@ -290,7 +290,6 @@ export default function ExploreMap({ listings }: ExploreMapProps) {
           }}
         >
           <Popup
-            closeButton={false}
             className="roomeo-map-popup"
             maxWidth={320}
             minWidth={280}

@@ -2,7 +2,7 @@ export const blogPosts = [
   {
     slug: "finding-rooms-in-kathmandu",
     title: "The Ultimate Guide to Finding a Room in Kathmandu",
-    excerpt: "Navigating the rental market in Kathmandu can be overwhelming. Here's everything you need to know — from neighborhoods to negotiate, pricing to paperwork.",
+    excerpt: "Navigating the rental market in Kathmandu can be overwhelming. Here's everything you need to know - from neighborhoods to negotiate, pricing to paperwork.",
     category: "Guides",
     readTime: "8 min read",
     date: "May 20, 2026",
@@ -12,7 +12,7 @@ export const blogPosts = [
   {
     slug: "zero-brokerage-revolution",
     title: "Why Zero Brokerage is the Future of Renting",
-    excerpt: "Brokerage fees in Nepal can cost up to a month's rent. We explain why cutting the middleman benefits everyone — tenants and landlords alike.",
+    excerpt: "Brokerage fees in Nepal can cost up to a month's rent. We explain why cutting the middleman benefits everyone - tenants and landlords alike.",
     category: "Industry",
     readTime: "5 min read",
     date: "May 15, 2026",
@@ -22,7 +22,7 @@ export const blogPosts = [
   {
     slug: "landlord-tips-better-listings",
     title: "5 Tips for Landlords to Create Better Listings",
-    excerpt: "Good photos, honest descriptions, and competitive pricing — simple changes that can double your inquiry rate on Roomeo.",
+    excerpt: "Good photos, honest descriptions, and competitive pricing - simple changes that can double your inquiry rate on Roomeo.",
     category: "Landlords",
     readTime: "4 min read",
     date: "May 10, 2026",
@@ -42,7 +42,7 @@ export const blogPosts = [
   {
     slug: "roomeo-launch-story",
     title: "Our Story: Why We Built Roomeo",
-    excerpt: "From personal frustration to a platform used by thousands — here's the story behind Roomeo and where we're headed next.",
+    excerpt: "From personal frustration to a platform used by thousands - here's the story behind Roomeo and where we're headed next.",
     category: "Company",
     readTime: "7 min read",
     date: "April 28, 2026",
@@ -52,7 +52,7 @@ export const blogPosts = [
   {
     slug: "safety-tips-renting",
     title: "Staying Safe While Renting: A Tenant's Checklist",
-    excerpt: "Scams, unsafe buildings, and sketchy landlords — here's how to protect yourself when searching for a room in Nepal.",
+    excerpt: "Scams, unsafe buildings, and sketchy landlords - here's how to protect yourself when searching for a room in Nepal.",
     category: "Safety",
     readTime: "5 min read",
     date: "April 20, 2026",

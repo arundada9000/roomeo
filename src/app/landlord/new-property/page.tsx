@@ -314,7 +314,7 @@ export default function NewPropertyPage() {
                 <textarea
                   value={form.description}
                   onChange={(e) => updateForm({ description: e.target.value })}
-                  placeholder="Describe your property — what makes it special..."
+                  placeholder="Describe your property - what makes it special..."
                   rows={3}
                   className="w-full rounded-2xl border border-border/60 bg-secondary/30 py-3.5 px-4 text-sm font-medium text-foreground placeholder:text-muted-foreground/50 transition-all focus:border-primary focus:bg-background focus:outline-none focus:ring-2 focus:ring-primary/20 resize-none"
                 />

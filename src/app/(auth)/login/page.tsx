@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { Mail, Lock, ArrowRight, Loader2, Eye, EyeOff, MapPin } from "lucide-react";
+import { Mail, Lock, ArrowRight, Loader2, Eye, EyeOff, MapPin, ArrowLeft } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 
 const fadeUp = {
@@ -57,8 +57,16 @@ export default function LoginPage() {
         animate="visible"
         variants={stagger}
       >
+        {/* Back to Home */}
+        <motion.div custom={0} variants={fadeUp} className="mb-4">
+          <Link href="/" className="inline-flex items-center gap-1.5 text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors">
+            <ArrowLeft className="h-4 w-4" />
+            Home
+          </Link>
+        </motion.div>
+
         {/* Mobile logo (hidden on desktop since layout shows it) */}
-        <motion.div custom={0} variants={fadeUp} className="mb-10 flex flex-col items-center justify-center gap-4 lg:hidden">
+        <motion.div custom={1} variants={fadeUp} className="mb-10 flex flex-col items-center justify-center gap-4 lg:hidden">
           <div className="relative group">
             {/* Glow effect */}
             <div className="absolute -inset-1 rounded-[22px] bg-gradient-to-r from-primary/50 to-blue-400/50 blur-lg opacity-75 transition duration-500 group-hover:opacity-100" />
@@ -70,7 +78,7 @@ export default function LoginPage() {
         </motion.div>
 
         {/* Header */}
-        <motion.div custom={1} variants={fadeUp} className="text-center">
+        <motion.div custom={2} variants={fadeUp} className="text-center">
           <h1 className="text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">
             Welcome back
           </h1>
@@ -91,7 +99,7 @@ export default function LoginPage() {
         )}
 
         {/* Form */}
-        <motion.form custom={2} variants={fadeUp} onSubmit={handleSubmit} className="mt-8 space-y-5">
+        <motion.form custom={3} variants={fadeUp} onSubmit={handleSubmit} className="mt-8 space-y-5">
           {/* Email */}
           <div className="space-y-2">
             <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
@@ -162,7 +170,7 @@ export default function LoginPage() {
         </motion.form>
 
         {/* Divider */}
-        <motion.div custom={3} variants={fadeUp} className="mt-8 flex items-center gap-4">
+        <motion.div custom={4} variants={fadeUp} className="mt-8 flex items-center gap-4">
           <div className="h-px flex-1 bg-border/60" />
           <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
             Or continue with
@@ -171,7 +179,7 @@ export default function LoginPage() {
         </motion.div>
 
         {/* Social Buttons */}
-        <motion.div custom={4} variants={fadeUp} className="mt-6 grid grid-cols-2 gap-3">
+        <motion.div custom={5} variants={fadeUp} className="mt-6 grid grid-cols-2 gap-3">
           <button className="flex h-12 items-center justify-center gap-2.5 rounded-2xl border border-border/60 bg-card text-sm font-semibold text-foreground transition-all duration-200 hover:bg-secondary/50 hover:border-border hover:shadow-sm">
             <svg className="h-5 w-5" viewBox="0 0 24 24">
               <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/>
@@ -190,7 +198,7 @@ export default function LoginPage() {
         </motion.div>
 
         {/* Sign Up Link */}
-        <motion.p custom={5} variants={fadeUp} className="mt-8 text-center text-sm text-muted-foreground">
+        <motion.p custom={6} variants={fadeUp} className="mt-8 text-center text-sm text-muted-foreground">
           Don&apos;t have an account?{" "}
           <Link href="/signup" className="font-bold text-primary hover:underline underline-offset-4 transition-colors">
             Create Account
@@ -198,7 +206,7 @@ export default function LoginPage() {
         </motion.p>
 
         {/* Terms */}
-        <motion.p custom={6} variants={fadeUp} className="mt-8 text-center text-[11px] leading-relaxed text-muted-foreground/70">
+        <motion.p custom={7} variants={fadeUp} className="mt-8 text-center text-[11px] leading-relaxed text-muted-foreground/70">
           By accessing Roomeo, you agree to our{" "}
           <span className="font-semibold text-primary/80 hover:underline">Terms of Service</span>{" "}
           and{" "}

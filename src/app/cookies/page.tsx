@@ -40,7 +40,7 @@ const cookieTypes = [
     border: "border-purple-500/20",
     title: "Analytics Cookies",
     required: false,
-    desc: "Help us understand how visitors use our platform — which pages are most popular, where users encounter issues, and how we can improve. All data is anonymized.",
+    desc: "Help us understand how visitors use our platform - which pages are most popular, where users encounter issues, and how we can improve. All data is anonymized.",
   },
 ];
 

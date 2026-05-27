@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Roomeo — Find Your Space Nearby",
+    name: "Roomeo - Find Your Space Nearby",
     short_name: "Roomeo",
     description:
       "Discover nearby rooms and flats with real-time availability, smart filters, and map-first exploration.",

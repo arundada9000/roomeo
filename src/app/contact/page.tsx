@@ -5,6 +5,7 @@ import { Mail, MapPin, MessageCircle, Clock, ArrowRight, Phone, Send, Sparkles, 
 
 import Navbar from "@/components/shared/navbar";
 import Footer from "@/components/shared/footer";
+import { ContactForm } from "@/components/shared/contact-form";
 import { motion } from "framer-motion";
 
 const contactMethods = [
@@ -206,60 +207,7 @@ export default function Page() {
               </motion.p>
             </motion.div>
 
-            <motion.form
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as const }}
-              className="space-y-6 rounded-3xl border border-border/50 bg-background p-8 sm:p-12 shadow-xl"
-            >
-              <div className="grid gap-6 sm:grid-cols-2">
-                <div>
-                  <label className="block text-sm font-bold text-foreground mb-2">Full Name</label>
-                  <input
-                    type="text"
-                    placeholder="Your name"
-                    className="w-full rounded-2xl border border-border/50 bg-secondary/30 px-4 py-3.5 text-sm font-medium outline-none transition-all placeholder:text-muted-foreground focus:border-primary/50 focus:bg-background focus:ring-2 focus:ring-primary/10"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-bold text-foreground mb-2">Email Address</label>
-                  <input
-                    type="email"
-                    placeholder="you@example.com"
-                    className="w-full rounded-2xl border border-border/50 bg-secondary/30 px-4 py-3.5 text-sm font-medium outline-none transition-all placeholder:text-muted-foreground focus:border-primary/50 focus:bg-background focus:ring-2 focus:ring-primary/10"
-                  />
-                </div>
-              </div>
-              <div>
-                <label className="block text-sm font-bold text-foreground mb-2">Subject</label>
-                <select className="w-full rounded-2xl border border-border/50 bg-secondary/30 px-4 py-3.5 text-sm font-medium outline-none transition-all focus:border-primary/50 focus:bg-background focus:ring-2 focus:ring-primary/10">
-                  <option>General Inquiry</option>
-                  <option>Support Request</option>
-                  <option>Partnership Proposal</option>
-                  <option>Report a Problem</option>
-                  <option>Feature Request</option>
-                </select>
-              </div>
-              <div>
-                <label className="block text-sm font-bold text-foreground mb-2">Message</label>
-                <textarea
-                  rows={6}
-                  placeholder="Tell us what's on your mind..."
-                  className="w-full rounded-2xl border border-border/50 bg-secondary/30 px-4 py-3.5 text-sm font-medium outline-none transition-all placeholder:text-muted-foreground focus:border-primary/50 focus:bg-background focus:ring-2 focus:ring-primary/10 resize-none"
-                />
-              </div>
-              <motion.button
-                type="submit"
-                whileHover={{ scale: 0.99 }}
-                whileTap={{ scale: 0.95 }}
-                className="group flex h-14 w-full items-center justify-center gap-3 rounded-2xl bg-primary text-base font-bold text-primary-foreground shadow-lg shadow-primary/20 transition-colors"
-              >
-                <Send className="h-5 w-5" />
-                Send Message
-                <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-              </motion.button>
-            </motion.form>
+            <ContactForm />
           </div>
         </section>
 

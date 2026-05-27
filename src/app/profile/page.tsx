@@ -35,6 +35,9 @@ export default function ProfilePage() {
           </div>
           <h1 className="text-2xl font-extrabold text-foreground">Sign in to view your profile</h1>
           <p className="mt-2 text-muted-foreground max-w-sm">Manage your settings, view saved rooms, and more.</p>
+          <Link href="/welcome" className="mt-6 inline-flex h-12 items-center justify-center gap-2 rounded-2xl bg-primary px-8 text-sm font-bold text-white shadow-lg shadow-primary/20 transition-all hover:shadow-xl hover:shadow-primary/30 active:scale-[0.97]">
+            Sign In
+          </Link>
         </main>
       </div>
     );
@@ -97,7 +100,7 @@ export default function ProfilePage() {
           <p className="text-sm text-muted-foreground mt-1">{session.user.email}</p>
           {promoted && (
             <span className="mt-3 inline-block rounded-full bg-[#d2f4d6] px-3 py-1 text-xs font-semibold text-[#0d5916]">
-              Role updated to {promoted} — refresh to see changes
+              Role updated to {promoted} - refresh to see changes
             </span>
           )}
         </div>
@@ -158,7 +161,7 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        {/* Dev Tools — Role Promotion */}
+        {/* Dev Tools - Role Promotion */}
         <div className="rounded-3xl border border-dashed border-amber-500/30 bg-amber-500/5 p-6">
           <h3 className="text-sm font-bold text-amber-600 mb-1 flex items-center gap-2">
             <ShieldCheck className="h-4 w-4" />

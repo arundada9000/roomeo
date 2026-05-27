@@ -2,11 +2,14 @@
 
 import { useState, useEffect } from "react";
 import { Heart } from "lucide-react";
+import { toast } from "sonner";
+import { authClient } from "@/lib/auth-client";
 import type { UnitCard } from "@/types";
 
 export default function FavoriteButton({ unit, className }: { unit: UnitCard, className?: string }) {
   const [isSaved, setIsSaved] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const { data: session } = authClient.useSession();
 
   useEffect(() => {
     setMounted(true);
@@ -17,18 +20,30 @@ export default function FavoriteButton({ unit, className }: { unit: UnitCard, cl
         if (parsed.find((u: any) => u.id === unit.id)) {
           setIsSaved(true);
         }
-      } catch (e) {}
+      } catch {}
     }
   }, [unit.id]);
 
   const toggleFavorite = (e: React.MouseEvent) => {
-    e.preventDefault(); // prevent navigation if inside a Link
+    e.preventDefault();
     e.stopPropagation();
+
+    if (!session) {
+      toast("Please log in", {
+        description: "Sign in to save spaces and find them later.",
+        action: {
+          label: "Sign In",
+          onClick: () => window.location.href = "/login",
+        },
+        duration: 5000,
+      });
+      return;
+    }
 
     const saved = localStorage.getItem("roomeo_favorites");
     let parsed = [];
     if (saved) {
-      try { parsed = JSON.parse(saved); } catch (e) {}
+      try { parsed = JSON.parse(saved); } catch {}
     }
 
     if (isSaved) {
@@ -40,8 +55,6 @@ export default function FavoriteButton({ unit, className }: { unit: UnitCard, cl
     }
 
     localStorage.setItem("roomeo_favorites", JSON.stringify(parsed));
-    
-    // Dispatch a custom event in case favorites page is open in another tab or we want to listen to it
     window.dispatchEvent(new Event("roomeo_favorites_changed"));
   };
 
@@ -54,7 +67,7 @@ export default function FavoriteButton({ unit, className }: { unit: UnitCard, cl
   }
 
   return (
-    <button 
+    <button
       onClick={toggleFavorite}
       className={className || "flex h-8 w-8 items-center justify-center rounded-full bg-background/50 backdrop-blur-md text-foreground transition-colors hover:bg-background/90 active:scale-95"}
     >

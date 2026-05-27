@@ -172,7 +172,7 @@ export default function FilterPanel() {
                       className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
                       id="filter-price-min"
                     />
-                    <span className="text-muted-foreground">–</span>
+                    <span className="text-muted-foreground">-</span>
                     <input
                       type="number"
                       placeholder="Max"

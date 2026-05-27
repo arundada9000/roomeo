@@ -61,7 +61,7 @@ const perks = [
   { icon: Zap, title: "Fast-Paced Culture", desc: "Ship features weekly. No bureaucracy, just building.", color: "text-amber-500", bg: "bg-amber-500/10", border: "border-amber-500/20" },
   { icon: Heart, title: "Health Benefits", desc: "Comprehensive health insurance for you and your family.", color: "text-rose-500", bg: "bg-rose-500/10", border: "border-rose-500/20" },
   { icon: Globe, title: "Remote-First", desc: "Work from anywhere in Nepal. Office available in Butwal.", color: "text-blue-500", bg: "bg-blue-500/10", border: "border-blue-500/20" },
-  { icon: Code2, title: "Latest Tech Stack", desc: "Next.js, TypeScript, Prisma, PostgreSQL — the best tools.", color: "text-green-500", bg: "bg-green-500/10", border: "border-green-500/20" },
+  { icon: Code2, title: "Latest Tech Stack", desc: "Next.js, TypeScript, Prisma, PostgreSQL - the best tools.", color: "text-green-500", bg: "bg-green-500/10", border: "border-green-500/20" },
   { icon: Users, title: "Small Team, Big Impact", desc: "Your work directly affects thousands of users every day.", color: "text-purple-500", bg: "bg-purple-500/10", border: "border-purple-500/20" },
   { icon: Coffee, title: "Flexible Hours", desc: "We care about output, not hours clocked. Set your own schedule.", color: "text-cyan-500", bg: "bg-cyan-500/10", border: "border-cyan-500/20" },
 ];
@@ -166,7 +166,7 @@ export default function Page() {
 
             <motion.p variants={fadeIn} className="mx-auto mt-8 max-w-2xl text-lg sm:text-xl text-muted-foreground leading-relaxed">
               Join a passionate team that&apos;s transforming how people find homes. We&apos;re small, scrappy,
-              and shipping fast — and we need talented people to grow with us.
+              and shipping fast - and we need talented people to grow with us.
             </motion.p>
 
             <motion.div variants={fadeIn} className="mt-10">

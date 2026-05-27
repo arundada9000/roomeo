@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, MapPin, Shield, Sparkles } from "lucide-react";
+import { ArrowRight, ArrowLeft, MapPin, Shield, Sparkles } from "lucide-react";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -62,6 +62,10 @@ export default function WelcomePage() {
               ROOMEO
             </span>
           </div>
+          <Link href="/explore" className="inline-flex items-center gap-1.5 text-sm font-semibold text-white/80 hover:text-white transition-colors">
+            <ArrowLeft className="h-4 w-4" />
+            Skip to Explore
+          </Link>
         </motion.div>
 
         {/* Floating badges */}
