@@ -17,7 +17,7 @@ export default function Navbar() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/20 bg-background/70 backdrop-blur-xl supports-[backdrop-filter]:bg-background/50">
+    <header suppressHydrationWarning className="sticky top-0 z-50 w-full border-b border-border/20 bg-background/70 backdrop-blur-xl supports-[backdrop-filter]:bg-background/50">
       <nav className="mx-auto flex h-[76px] w-full max-w-[1400px] items-center justify-between px-4 sm:px-6 lg:px-8">
         
         {/* Logo Section */}
