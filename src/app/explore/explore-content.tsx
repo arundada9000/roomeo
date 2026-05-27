@@ -65,6 +65,15 @@ export default function ExplorePageContent({ initialListings, selectedUnitId: in
   }, []); // only run on mount
 
   // Constants for inline filters
+  const roomTypeIcons: Record<string, string> = {
+    SINGLE_ROOM: "/icons-for-rooms/room-icons-1/Single_room.png",
+    DOUBLE_ROOM: "/icons-for-rooms/room-icons-1/Double_room.png",
+    SHARED_ROOM: "/icons-for-rooms/room-icons-1/Shared_room.png",
+    FLAT: "/icons-for-rooms/room-icons-1/Flat.png",
+    STUDIO: "/icons-for-rooms/room-icons-1/Studio.png",
+    PG: "/icons-for-rooms/room-icons-1/PG_Hostel.png",
+  };
+
   const roomTypes = [
     { value: "SINGLE_ROOM", label: "Single Room" },
     { value: "FLAT", label: "Flat/Apartment" },
@@ -93,7 +102,8 @@ export default function ExplorePageContent({ initialListings, selectedUnitId: in
   }
 
   useEffect(() => {
-    fetchListings();
+    const timer = setTimeout(() => fetchListings(), 0);
+    return () => clearTimeout(timer);
   }, [filters, searchQuery, bounds]);
 
   // Handle selected unit scrolling
@@ -101,8 +111,11 @@ export default function ExplorePageContent({ initialListings, selectedUnitId: in
     if (selectedUnitId) {
       const el = document.getElementById(`unit-card-${selectedUnitId}`);
       if (el) {
-        setListMode((prev) => (prev === "closed" ? "peek" : prev));
+        const timer = setTimeout(() => {
+          setListMode((prev) => (prev === "closed" ? "peek" : prev));
+        }, 0);
         el.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+        return () => clearTimeout(timer);
       }
     }
   }, [selectedUnitId]);
@@ -191,7 +204,7 @@ export default function ExplorePageContent({ initialListings, selectedUnitId: in
                 {activeInlineFilter === "type" && (
                   <div className="flex flex-col gap-2 mb-4">
                     {roomTypes.map(t => {
-                      const isActive = filters.roomType?.includes(t.value as any);
+                      const isActive = filters.roomType?.includes(t.value as RoomType);
                       return (
                         <button 
                           key={t.value}
@@ -200,11 +213,16 @@ export default function ExplorePageContent({ initialListings, selectedUnitId: in
                             setFiltersStore({
                               roomType: isActive 
                                 ? current.filter(x => x !== t.value)
-                                : [...current, t.value as any]
+                                : [...current, t.value as RoomType]
                             });
                           }}
-                          className={`text-left px-3 py-2 rounded-xl text-sm font-semibold transition-colors ${isActive ? "bg-primary/10 text-primary" : "hover:bg-secondary"}`}
+                          className={`flex items-center gap-2 text-left px-3 py-2 rounded-xl text-sm font-semibold transition-colors ${isActive ? "bg-primary/10 text-primary" : "hover:bg-secondary"}`}
                         >
+                          <img
+                            src={roomTypeIcons[t.value] || roomTypeIcons.SINGLE_ROOM}
+                            alt=""
+                            className="h-4 w-4 object-contain rounded-sm"
+                          />
                           {t.label} {isActive && "✓"}
                         </button>
                       )

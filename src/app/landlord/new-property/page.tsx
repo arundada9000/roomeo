@@ -140,7 +140,7 @@ export default function NewPropertyPage() {
 
   const updateForm = (updates: Partial<FormState>) => setForm((prev) => ({ ...prev, ...updates }));
 
-  const toggleAmenity = (key: string) => updateForm({ [key]: !(form as any)[key] });
+  const toggleAmenity = (key: keyof FormState) => updateForm({ [key]: !form[key] });
 
   const goNext = () => { setDir(1); setStep((s) => Math.min(s + 1, 2)); };
   const goBack = () => { setDir(-1); setStep((s) => Math.max(s - 1, 1)); };
@@ -209,8 +209,8 @@ export default function NewPropertyPage() {
       fd.set("mediaUrls", JSON.stringify(mediaUrls));
 
       await createProperty(fd);
-    } catch (err: any) {
-      setError(err.message || "Something went wrong.");
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Something went wrong.");
       setIsSubmitting(false);
     }
   };
@@ -535,7 +535,7 @@ export default function NewPropertyPage() {
                 </div>
                 <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
                   {amenities.map((am) => {
-                    const active = (form as any)[am.key];
+                    const active = form[am.key];
                     return (
                       <button
                         key={am.key}
@@ -563,7 +563,7 @@ export default function NewPropertyPage() {
                 </div>
                 <div className="space-y-1">
                   {rules.map((rule, idx) => {
-                    const active = (form as any)[rule.key];
+                    const active = form[rule.key];
                     return (
                       <div
                         key={rule.key}

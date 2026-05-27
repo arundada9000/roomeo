@@ -14,7 +14,7 @@ export default function NotFound() {
       </h1>
       
       <p className="mx-auto mb-10 max-w-lg text-lg text-muted-foreground">
-        It seems the room you are looking for doesn't exist, has been moved, or is currently undergoing renovation. Let's get you back home.
+        It seems the room you are looking for doesn&apos;t exist, has been moved, or is currently undergoing renovation. Let&apos;s get you back home.
       </p>
       
       <div className="flex flex-col gap-4 sm:flex-row">

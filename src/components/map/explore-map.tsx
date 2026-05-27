@@ -12,6 +12,15 @@ import "leaflet/dist/leaflet.css";
 import { useMapStore } from "@/stores/map-store";
 import type { UnitCard, RoomType } from "@/types";
 
+const roomTypeIcons: Record<string, string> = {
+  SINGLE_ROOM: "/icons-for-rooms/room-icons-1/Single_room.png",
+  DOUBLE_ROOM: "/icons-for-rooms/room-icons-1/Double_room.png",
+  SHARED_ROOM: "/icons-for-rooms/room-icons-1/Shared_room.png",
+  FLAT: "/icons-for-rooms/room-icons-1/Flat.png",
+  STUDIO: "/icons-for-rooms/room-icons-1/Studio.png",
+  PG: "/icons-for-rooms/room-icons-1/PG_Hostel.png",
+};
+
 const roomTypeLabels: Record<RoomType | string, string> = {
   SINGLE_ROOM: "Single Room",
   DOUBLE_ROOM: "Double Room",
@@ -21,15 +30,15 @@ const roomTypeLabels: Record<RoomType | string, string> = {
   PG: "PG",
 };
 
-const createMarkerIcon = (isSelected: boolean, priceStr: string) =>
+const createMarkerIcon = (isSelected: boolean, priceStr: string, roomType: string) =>
   L.divIcon({
     className: "custom-marker bg-transparent border-0",
     html: `<div style="
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 4px;
-      padding: 6px 14px;
+      gap: 6px;
+      padding: 4px 14px 4px 8px;
       border-radius: 999px;
       background: ${isSelected ? "#004ac6" : "#ffffff"};
       color: ${isSelected ? "#ffffff" : "#004ac6"};
@@ -40,8 +49,8 @@ const createMarkerIcon = (isSelected: boolean, priceStr: string) =>
       transition: all 0.2s ease;
       transform: scale(${isSelected ? 1.05 : 1});
       font-family: var(--font-sans);
-    "><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>${priceStr}</div>`,
-    iconSize: [undefined as any, undefined as any],
+    "><img src="${roomTypeIcons[roomType] || roomTypeIcons.SINGLE_ROOM}" style="width: 20px; height: 20px; object-fit: contain; border-radius: 3px;" />${priceStr}</div>`,
+    iconSize: undefined as unknown as L.PointExpression,
     iconAnchor: [30, 16],
     popupAnchor: [0, -24],
   });
@@ -124,14 +133,23 @@ function PopupCard({ unit, formatPrice }: PopupCardProps) {
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-primary/5 to-primary/10">
-            <Home className="h-8 w-8 text-primary/30" />
+            <img
+              src={roomTypeIcons[unit.type] || roomTypeIcons.SINGLE_ROOM}
+              alt=""
+              className="h-8 w-8 object-contain opacity-40"
+            />
           </div>
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
 
         {/* Type Badge + Price Overlay */}
         <div className="absolute bottom-2 left-3 right-3 flex items-end justify-between">
-          <span className="rounded-full bg-white/90 backdrop-blur-sm px-2.5 py-0.5 text-[11px] font-bold text-foreground shadow-sm">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-white/90 backdrop-blur-sm px-2.5 py-0.5 text-[11px] font-bold text-foreground shadow-sm">
+            <img
+              src={roomTypeIcons[unit.type] || roomTypeIcons.SINGLE_ROOM}
+              alt=""
+              className="h-3.5 w-3.5 object-contain rounded-sm"
+            />
             {roomTypeLabels[unit.type] || unit.type.replace(/_/g, " ")}
           </span>
           <span className="text-base font-extrabold text-white drop-shadow-md">
@@ -284,7 +302,7 @@ export default function ExploreMap({ listings }: ExploreMapProps) {
         <Marker
           key={unit.id}
           position={[unit.property.lat, unit.property.lng]}
-          icon={createMarkerIcon(selectedUnitId === unit.id, formatPrice(unit.price, unit.currency))}
+          icon={createMarkerIcon(selectedUnitId === unit.id, formatPrice(unit.price, unit.currency), unit.type)}
           eventHandlers={{
             click: () => setSelectedUnitId(unit.id),
           }}

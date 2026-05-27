@@ -6,6 +6,15 @@ import FavoriteButton from "@/components/shared/favorite-button";
 import ShareClientButton from "@/components/shared/share-client-button";
 import type { UnitCard } from "@/types";
 
+const roomTypeIcons: Record<string, string> = {
+  SINGLE_ROOM: "/icons-for-rooms/room-icons-1/Single_room.png",
+  DOUBLE_ROOM: "/icons-for-rooms/room-icons-1/Double_room.png",
+  SHARED_ROOM: "/icons-for-rooms/room-icons-1/Shared_room.png",
+  FLAT: "/icons-for-rooms/room-icons-1/Flat.png",
+  STUDIO: "/icons-for-rooms/room-icons-1/Studio.png",
+  PG: "/icons-for-rooms/room-icons-1/PG_Hostel.png",
+};
+
 export default async function UnitDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = await params;
   const unit = await prisma.unit.findUnique({
@@ -115,7 +124,12 @@ export default async function UnitDetailPage({ params }: { params: Promise<{ id:
             {/* Header Info */}
             <div>
               <div className="flex flex-wrap items-center gap-2 mb-3">
-                <span className="rounded-md bg-accent px-2 py-1 text-xs font-semibold text-accent-foreground uppercase tracking-wider">
+                <span className="inline-flex items-center gap-1.5 rounded-md bg-accent px-2 py-1 text-xs font-semibold text-accent-foreground uppercase tracking-wider">
+                  <img
+                    src={roomTypeIcons[unit.type] || roomTypeIcons.SINGLE_ROOM}
+                    alt=""
+                    className="h-4 w-4 object-contain rounded-sm"
+                  />
                   {formatType(unit.type)}
                 </span>
                 {unit.isAvailable ? (

@@ -16,7 +16,7 @@ export default async function LandlordLayout({ children }: { children: React.Rea
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
-      <Navbar />
+      <Navbar initialSession={session} />
       <div className="flex flex-1">
         {/* Sidebar */}
         <aside className="w-72 border-r border-border/40 bg-card/50 p-6 hidden md:flex md:flex-col gap-2">

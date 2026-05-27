@@ -19,7 +19,7 @@ import { Label } from "@/components/ui/label";
 import { Select } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 
-function _UserDetailActions({
+function UserDetailActions({
   userId,
   currentRole,
   userName,

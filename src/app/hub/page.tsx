@@ -9,6 +9,15 @@ import {
 import Navbar from "@/components/shared/navbar";
 import Footer from "@/components/shared/footer";
 
+const roomTypeIcons: Record<string, string> = {
+  SINGLE_ROOM: "/icons-for-rooms/room-icons-1/Single_room.png",
+  DOUBLE_ROOM: "/icons-for-rooms/room-icons-1/Double_room.png",
+  SHARED_ROOM: "/icons-for-rooms/room-icons-1/Shared_room.png",
+  FLAT: "/icons-for-rooms/room-icons-1/Flat.png",
+  STUDIO: "/icons-for-rooms/room-icons-1/Studio.png",
+  PG: "/icons-for-rooms/room-icons-1/PG_Hostel.png",
+};
+
 export default async function HubPage() {
   const session = await auth.api.getSession({ headers: await headers() }).catch(() => null);
 
@@ -109,7 +118,12 @@ export default async function HubPage() {
                 </div>
                 <div className="flex flex-col justify-center p-6 md:col-span-3">
                   <div className="space-y-2">
-                    <p className="text-[11px] font-bold uppercase tracking-wider text-primary">
+                    <p className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-primary">
+                      <img
+                        src={roomTypeIcons[heroListing.type] || roomTypeIcons.SINGLE_ROOM}
+                        alt=""
+                        className="h-4 w-4 object-contain rounded-sm"
+                      />
                       {heroListing.type.replace(/_/g, " ")}
                     </p>
                     <h2 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">
@@ -160,7 +174,12 @@ export default async function HubPage() {
                 className="group rounded-2xl border border-border/30 bg-card p-5 shadow-sm transition-all duration-200 hover:shadow-md hover:-translate-y-0.5"
               >
                 <div className="flex items-start justify-between mb-3">
-                  <span className="rounded-lg bg-secondary px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                  <span className="inline-flex items-center gap-1 rounded-lg bg-secondary px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                    <img
+                      src={roomTypeIcons[unit.type] || roomTypeIcons.SINGLE_ROOM}
+                      alt=""
+                      className="h-3 w-3 object-contain rounded-sm"
+                    />
                     {unit.type.replace(/_/g, " ")}
                   </span>
                   <span className="text-[10px] text-muted-foreground/40">

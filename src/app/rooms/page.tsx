@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import RoomsContent from "./rooms-content";
 import { getRooms } from "./actions";
 import type { RoomsFilters } from "./actions";
+import type { RoomType } from "@prisma/client";
 
 export const metadata: Metadata = {
   title: "Browse Rooms & Flats",
@@ -17,7 +18,7 @@ function parseFilters(searchParams: Record<string, string | string[] | undefined
   if (typeof searchParams.priceMax === "string") filters.priceMax = Number(searchParams.priceMax);
 
   if (typeof searchParams.roomType === "string") {
-    filters.roomType = searchParams.roomType.split(",").filter(Boolean) as any;
+    filters.roomType = searchParams.roomType.split(",").filter(Boolean) as RoomType[];
   }
 
   const booleans = [
@@ -26,11 +27,11 @@ function parseFilters(searchParams: Record<string, string | string[] | undefined
     "boysOnly", "girlsOnly", "availableNow",
   ] as const;
   for (const key of booleans) {
-    if (typeof searchParams[key] === "string") (filters as any)[key] = true;
+    if (typeof searchParams[key] === "string") (filters as Record<string, unknown>)[key] = true;
   }
 
   if (typeof searchParams.sort === "string" && ["newest", "price_asc", "price_desc"].includes(searchParams.sort)) {
-    filters.sort = searchParams.sort as any;
+    filters.sort = searchParams.sort as "newest" | "price_asc" | "price_desc";
   }
 
   if (typeof searchParams.page === "string") filters.page = Number(searchParams.page);

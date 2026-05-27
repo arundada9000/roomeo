@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { Mail, Lock, ArrowRight, Loader2, Eye, EyeOff, MapPin, ArrowLeft } from "lucide-react";
+import { Mail, Lock, ArrowRight, Loader2, Eye, EyeOff, ArrowLeft } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 
 const fadeUp = {
@@ -42,8 +42,8 @@ export default function LoginPage() {
       const { error } = await authClient.signIn.email({ email, password });
       if (error) throw error;
       router.push("/explore");
-    } catch (err: any) {
-      setError(err.message || "Invalid email or password. Please try again.");
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Invalid email or password. Please try again.");
     } finally {
       setLoading(false);
     }

@@ -1,9 +1,8 @@
 "use client";
-import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { MapPin, Search, Heart, User, LogOut, Bell, Building, Settings, ChevronDown } from "lucide-react";
+import { Search, Heart, User, LogOut, Building, Settings, ChevronDown } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 
 const navLinks = [
@@ -12,8 +11,25 @@ const navLinks = [
   { label: "List Property", href: "/landlord" },
 ];
 
-export default function Navbar() {
-  const { data: session, isPending } = authClient.useSession();
+interface NavbarSession {
+  user: {
+    id: string;
+    name: string;
+    email: string;
+    role?: string;
+    image?: string | null;
+  };
+  session: {
+    id: string;
+    expiresAt: Date;
+    token: string;
+  } | null;
+}
+
+export default function Navbar({ initialSession }: { initialSession?: NavbarSession }) {
+  const { data: liveSession, isPending: _isPending } = authClient.useSession();
+  const isPending = !initialSession && _isPending;
+  const session = liveSession ?? initialSession;
   const pathname = usePathname();
 
   return (

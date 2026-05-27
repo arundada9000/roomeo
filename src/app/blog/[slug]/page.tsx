@@ -4,7 +4,7 @@ import Link from "next/link";
 import Navbar from "@/components/shared/navbar";
 import Footer from "@/components/shared/footer";
 import { blogPosts } from "@/data/blog";
-import { Calendar, Clock, ArrowLeft, Share2, Link as LinkIcon, Mail, MessageCircle, Copy } from "lucide-react";
+import { Calendar, Clock, ArrowLeft, Link as LinkIcon, Mail, MessageCircle, Copy } from "lucide-react";
 
 export function generateStaticParams() {
   return blogPosts.map((post) => ({
@@ -75,7 +75,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
               Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.
             </p>
             <blockquote>
-              "Finding the right room isn't just about the physical space. It's about finding a community that feels like home."
+              &ldquo;Finding the right room isn&apos;t just about the physical space. It&apos;s about finding a community that feels like home.&rdquo;
             </blockquote>
             <h3>Key Takeaways</h3>
             <ul>

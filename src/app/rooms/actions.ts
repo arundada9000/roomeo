@@ -1,7 +1,7 @@
 "use server";
 
 import prisma from "@/lib/prisma";
-import type { RoomType } from "@prisma/client";
+import { Prisma, type RoomType } from "@prisma/client";
 
 export interface RoomsFilters {
   query?: string;
@@ -61,7 +61,7 @@ export async function getRooms(filters: RoomsFilters = {}): Promise<RoomsResult>
   const page = Math.max(1, filters.page ?? 1);
   const sort = filters.sort ?? "newest";
 
-  const where: any = { status: "APPROVED" };
+  const where: Prisma.UnitWhereInput = { status: "APPROVED" };
 
   if (filters.priceMin || filters.priceMax) {
     where.price = {};
@@ -96,7 +96,7 @@ export async function getRooms(filters: RoomsFilters = {}): Promise<RoomsResult>
     ];
   }
 
-  let orderBy: any = { createdAt: "desc" };
+  let orderBy: Prisma.UnitOrderByWithRelationInput = { createdAt: "desc" };
   if (sort === "price_asc") orderBy = { price: "asc" };
   else if (sort === "price_desc") orderBy = { price: "desc" };
 

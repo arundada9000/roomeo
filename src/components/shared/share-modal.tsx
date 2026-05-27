@@ -18,7 +18,8 @@ export default function ShareModal({ isOpen, onClose, url, title }: ShareModalPr
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    const timer = setTimeout(() => setMounted(true), 0);
+    return () => clearTimeout(timer);
   }, []);
 
   const handleCopy = async () => {

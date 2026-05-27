@@ -85,8 +85,8 @@ export default function ProfileSettingsPage() {
       // Refresh the router to propagate session changes
       router.refresh();
 
-    } catch (err: any) {
-      setMessage({ type: "error", text: err.message || "Failed to update profile." });
+    } catch (err: unknown) {
+      setMessage({ type: "error", text: err instanceof Error ? err.message : "Failed to update profile." });
     } finally {
       setIsSaving(false);
     }

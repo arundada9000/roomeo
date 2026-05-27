@@ -7,7 +7,7 @@ import { toast } from "sonner";
 import { updateUserRole, deleteUser } from "../actions";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 
-function _UsersRoleActions({
+function UsersRoleActions({
   userId,
   currentRole,
 }: {

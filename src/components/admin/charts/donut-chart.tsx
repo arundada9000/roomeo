@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
+import { useMemo } from "react"
 
 interface DonutChartProps {
   data: { label: string; value: number; color: string }[]
@@ -18,26 +19,30 @@ function DonutChart({
   formatValue,
   showLegend = true,
 }: DonutChartProps) {
-  if (data.length === 0) return null
-
   const total = data.reduce((s, d) => s + d.value, 0) || 1
   const strokeWidth = 28
   const radius = (size - strokeWidth) / 2
   const circumference = 2 * Math.PI * radius
   const center = size / 2
 
-  let cumulative = 0
+  const arcs = useMemo(() => {
+    const totalPct = data.reduce((s, d) => s + d.value, 0) || 1
+    return data.map((d, i) => {
+      const prevPcts = data.slice(0, i).reduce((s, item) => s + item.value / totalPct, 0)
+      const pct = d.value / totalPct
+      const offset = prevPcts * circumference
+      const length = pct * circumference
+      return { ...d, offset, length }
+    })
+  }, [data, circumference])
+
+  if (data.length === 0) return null
 
   return (
     <div className={cn("flex flex-col items-center", className)}>
       <div className="relative" style={{ width: size, height: size }}>
         <svg width={size} height={size} className="transform -rotate-90">
-          {data.map((d, i) => {
-            const pct = d.value / total
-            const offset = cumulative * circumference
-            const length = pct * circumference
-            cumulative += pct
-            return (
+          {arcs.map((d, i) => (
               <motion.circle
                 key={`slice-${i}`}
                 cx={center}
@@ -46,15 +51,14 @@ function DonutChart({
                 fill="none"
                 stroke={d.color}
                 strokeWidth={strokeWidth}
-                strokeDasharray={`${length} ${circumference - length}`}
-                strokeDashoffset={circumference - offset}
+                strokeDasharray={`${d.length} ${circumference - d.length}`}
+                strokeDashoffset={circumference - d.offset}
                 strokeLinecap="round"
                 initial={{ strokeDashoffset: circumference }}
-                animate={{ strokeDashoffset: circumference - offset - length }}
+                animate={{ strokeDashoffset: circumference - d.offset - d.length }}
                 transition={{ duration: 0.8, ease: "easeInOut" }}
               />
-            )
-          })}
+            ))}
           <circle
             cx={center}
             cy={center}

@@ -16,12 +16,12 @@ import type { RoomsResult, RoomsFilters } from "./actions";
 import type { UnitCard } from "@/types";
 
 const roomTypeOptions = [
-  { value: "SINGLE_ROOM", label: "Single Room" },
-  { value: "DOUBLE_ROOM", label: "Double Room" },
-  { value: "SHARED_ROOM", label: "Shared Room" },
-  { value: "FLAT", label: "Flat" },
-  { value: "STUDIO", label: "Studio" },
-  { value: "PG", label: "PG" },
+  { value: "SINGLE_ROOM", label: "Single Room", icon: "Single_room.png" },
+  { value: "DOUBLE_ROOM", label: "Double Room", icon: "Double_room.png" },
+  { value: "SHARED_ROOM", label: "Shared Room", icon: "Shared_room.png" },
+  { value: "FLAT", label: "Flat", icon: "Flat.png" },
+  { value: "STUDIO", label: "Studio", icon: "Studio.png" },
+  { value: "PG", label: "PG", icon: "PG_Hostel.png" },
 ];
 
 const amenityFilters = [
@@ -47,6 +47,15 @@ interface RoomsContentProps {
   initialFilters: RoomsFilters;
 }
 
+const roomTypeIcons: Record<string, string> = {
+  SINGLE_ROOM: "/icons-for-rooms/room-icons-1/Single_room.png",
+  DOUBLE_ROOM: "/icons-for-rooms/room-icons-1/Double_room.png",
+  SHARED_ROOM: "/icons-for-rooms/room-icons-1/Shared_room.png",
+  FLAT: "/icons-for-rooms/room-icons-1/Flat.png",
+  STUDIO: "/icons-for-rooms/room-icons-1/Studio.png",
+  PG: "/icons-for-rooms/room-icons-1/PG_Hostel.png",
+};
+
 const roomTypeLabels: Record<string, string> = {
   SINGLE_ROOM: "Single Room",
   DOUBLE_ROOM: "Double Room",
@@ -68,7 +77,7 @@ function PillButton({
   return (
     <button
       onClick={onClick}
-      className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-all ${
+      className={`inline-flex items-center gap-1 rounded-full border px-3 py-1.5 text-xs font-medium transition-all ${
         active
           ? "border-primary bg-primary/10 text-primary"
           : "border-border text-muted-foreground hover:border-border hover:text-foreground"
@@ -99,7 +108,11 @@ function UnitCard({ unit }: { unit: RoomsResult["units"][number] }) {
             />
           ) : (
             <div className="flex h-full w-full items-center justify-center">
-              <Home className="h-8 w-8 text-muted-foreground/30" />
+              <img
+                src={roomTypeIcons[unit.type] || roomTypeIcons.SINGLE_ROOM}
+                alt=""
+                className="h-8 w-8 object-contain opacity-30"
+              />
             </div>
           )}
           <div className="absolute top-3 right-3 z-10">
@@ -125,7 +138,12 @@ function UnitCard({ unit }: { unit: RoomsResult["units"][number] }) {
         </p>
 
         <div className="flex items-center gap-2 text-xs text-muted-foreground mb-3">
-          <span className="rounded-md bg-secondary px-2 py-0.5 font-medium">
+          <span className="inline-flex items-center gap-1 rounded-md bg-secondary px-2 py-0.5 font-medium">
+            <img
+              src={roomTypeIcons[unit.type] || roomTypeIcons.SINGLE_ROOM}
+              alt=""
+              className="h-3.5 w-3.5 object-contain rounded-sm"
+            />
             {roomTypeLabels[unit.type] || unit.type.replace(/_/g, " ")}
           </span>
           {unit.furnished && (
@@ -176,12 +194,12 @@ export default function RoomsContent({ initialData, initialFilters }: RoomsConte
     const updated = current.includes(value)
       ? current.filter((v) => v !== value)
       : [...current, value];
-    updateParams({ [key]: updated.length > 0 ? updated : undefined } as any);
+    updateParams({ [key]: updated.length > 0 ? updated.join(",") : undefined } as Partial<RoomsFilters>);
   };
 
   const toggleBooleanFilter = (key: string) => {
     const current = searchParams.get(key);
-    updateParams({ [key]: current ? undefined : "true" } as any);
+    updateParams({ [key]: current ? undefined : "true" } as Partial<RoomsFilters>);
   };
 
   const activeFilterCount = useMemo(() => {
@@ -241,7 +259,7 @@ export default function RoomsContent({ initialData, initialFilters }: RoomsConte
           <div className="flex items-center gap-2">
             <select
               value={searchParams.get("sort") ?? "newest"}
-              onChange={(e) => updateParams({ sort: e.target.value as any })}
+              onChange={(e) => updateParams({ sort: e.target.value as "newest" | "price_asc" | "price_desc" })}
               className="h-11 rounded-xl border border-border bg-background px-3 pr-8 text-sm text-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary appearance-none"
             >
               <option value="newest">Newest First</option>
@@ -324,6 +342,11 @@ export default function RoomsContent({ initialData, initialFilters }: RoomsConte
                           active={(searchParams.get("roomType") ?? "").includes(opt.value)}
                           onClick={() => toggleArrayFilter("roomType", opt.value)}
                         >
+                          <img
+                            src={`/icons-for-rooms/room-icons-1/${opt.icon}`}
+                            alt=""
+                            className="h-3.5 w-3.5 object-contain rounded-sm"
+                          />
                           {opt.label}
                         </PillButton>
                       ))}

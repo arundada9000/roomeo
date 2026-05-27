@@ -1,7 +1,7 @@
 "use server";
 
 import prisma from "@/lib/prisma";
-import type { RoomType } from "@prisma/client";
+import { Prisma, type RoomType } from "@prisma/client";
 
 export interface ExploreFilters {
   priceMin?: number;
@@ -35,7 +35,7 @@ export interface ExploreFilters {
 
 export async function getExploreListings(filters: ExploreFilters = {}) {
   try {
-    const where: any = { status: "APPROVED" };
+    const where: Prisma.UnitWhereInput = { status: "APPROVED" };
 
     if (filters.priceMin || filters.priceMax) {
       where.price = {};

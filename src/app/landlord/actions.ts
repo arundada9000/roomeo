@@ -182,3 +182,58 @@ export async function createUnit(propertyId: string, formData: FormData) {
 
   redirect(`/landlord/properties/${propertyId}`);
 }
+
+export async function updateUnit(unitId: string, formData: FormData) {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) {
+    throw new Error("Unauthorized");
+  }
+
+  const unit = await prisma.unit.findUnique({
+    where: { id: unitId },
+    include: { property: { select: { landlordId: true } } },
+  });
+
+  if (!unit || unit.property.landlordId !== session.user.id) {
+    throw new Error("Unauthorized");
+  }
+
+  const title = formData.get("title") as string;
+  const description = formData.get("description") as string;
+  const type = formData.get("type") as RoomType;
+  const price = parseInt(formData.get("price") as string, 10);
+
+  const furnished = formData.get("furnished") === "on";
+  const attachedBath = formData.get("attachedBath") === "on";
+  const wifi = formData.get("wifi") === "on";
+  const parking = formData.get("parking") === "on";
+  const petFriendly = formData.get("petFriendly") === "on";
+  const balcony = formData.get("balcony") === "on";
+  const kitchenAccess = formData.get("kitchenAccess") === "on";
+  const waterIncluded = formData.get("waterIncluded") === "on";
+  const powerIncluded = formData.get("powerIncluded") === "on";
+
+  await prisma.unit.update({
+    where: { id: unitId },
+    data: {
+      title,
+      description,
+      type,
+      price,
+      furnished,
+      attachedBath,
+      wifi,
+      parking,
+      petFriendly,
+      balcony,
+      kitchenAccess,
+      waterIncluded,
+      powerIncluded,
+    },
+  });
+
+  redirect(`/landlord/properties/${unit.propertyId}`);
+}

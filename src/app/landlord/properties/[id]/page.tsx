@@ -8,8 +8,10 @@ import { redirect } from "next/navigation";
 export default async function PropertyDetailPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
+  const { id } = await params;
+
   const session = await auth.api.getSession({
     headers: await headers(),
   });
@@ -17,7 +19,7 @@ export default async function PropertyDetailPage({
   if (!session) redirect("/");
 
   const property = await prisma.property.findUnique({
-    where: { id: params.id, landlordId: session.user.id },
+    where: { id, landlordId: session.user.id },
     include: {
       units: {
         orderBy: { createdAt: "desc" },
@@ -78,12 +80,13 @@ export default async function PropertyDetailPage({
               >
                 <Eye className="h-4 w-4" />
               </Link>
-              <button
+              <Link
+                href={`/landlord/properties/${property.id}/units/${unit.id}/edit`}
                 className="flex h-9 w-9 items-center justify-center rounded-md border border-border bg-background text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
                 title="Edit Unit"
               >
                 <Edit className="h-4 w-4" />
-              </button>
+              </Link>
             </div>
           </div>
         ))}

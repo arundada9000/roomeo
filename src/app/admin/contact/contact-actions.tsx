@@ -8,7 +8,7 @@ import { markContactRead, markContactUnread, deleteContactSubmission } from "@/a
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { Button } from "@/components/ui/button";
 
-function _ContactActions({
+function ContactActions({
   id,
   isRead,
   name,

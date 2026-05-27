@@ -24,16 +24,18 @@ export default function FavoritesPage() {
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
-    setMounted(true);
-    const saved = localStorage.getItem("roomeo_favorites");
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed)) setFavorites(parsed);
-      } catch {
-        // ignore
+    const timer = setTimeout(() => {
+      setMounted(true);
+      const saved = localStorage.getItem("roomeo_favorites");
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed)) setFavorites(parsed);
+        } catch {
+          // ignore
+        }
       }
-    }
+    }, 0);
 
     const handleFavoritesChange = () => {
       const saved = localStorage.getItem("roomeo_favorites");
@@ -48,7 +50,10 @@ export default function FavoritesPage() {
     };
 
     window.addEventListener("roomeo_favorites_changed", handleFavoritesChange);
-    return () => window.removeEventListener("roomeo_favorites_changed", handleFavoritesChange);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("roomeo_favorites_changed", handleFavoritesChange);
+    };
   }, []);
 
   const filtered = useMemo(() => {

@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import { useMapStore } from "@/stores/map-store";
 import { FilterState, RoomType } from "@/types";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export default function FilterModal({ 
   isOpen, 
@@ -21,11 +21,13 @@ export default function FilterModal({
 
   // Local state for the form
   const [localFilters, setLocalFilters] = useState<Partial<FilterState>>(filters);
+  const prevOpenRef = useRef(isOpen);
 
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen && !prevOpenRef.current) {
       setLocalFilters(filters);
     }
+    prevOpenRef.current = isOpen;
   }, [isOpen, filters]);
 
   const handleApply = () => {
@@ -54,6 +56,15 @@ export default function FilterModal({
       }
       return { ...prev, roomType: [...current, type] };
     });
+  };
+
+  const roomTypeIcons: Record<string, string> = {
+    SINGLE_ROOM: "/icons-for-rooms/room-icons-1/Single_room.png",
+    DOUBLE_ROOM: "/icons-for-rooms/room-icons-1/Double_room.png",
+    SHARED_ROOM: "/icons-for-rooms/room-icons-1/Shared_room.png",
+    FLAT: "/icons-for-rooms/room-icons-1/Flat.png",
+    STUDIO: "/icons-for-rooms/room-icons-1/Studio.png",
+    PG: "/icons-for-rooms/room-icons-1/PG_Hostel.png",
   };
 
   const roomTypes = [
@@ -180,12 +191,18 @@ export default function FilterModal({
                       <button
                         key={type.value}
                         onClick={() => toggleRoomType(type.value)}
-                        className={`px-4 py-2 rounded-xl text-sm font-semibold border transition-all ${
+                        className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-semibold border transition-all ${
                           isSelected 
                             ? 'bg-primary text-primary-foreground border-primary shadow-sm shadow-primary/20' 
                             : 'bg-background text-muted-foreground border-border/60 hover:border-primary/40'
                         }`}
                       >
+                        <img
+                          src={roomTypeIcons[type.value] || roomTypeIcons.SINGLE_ROOM}
+                          alt=""
+                          className="h-4 w-4 object-contain rounded-sm"
+                          style={isSelected ? { filter: 'brightness(0) invert(1)' } : undefined}
+                        />
                         {type.label}
                       </button>
                     )

@@ -17,7 +17,16 @@ import type { UnitCard, RoomType } from "@/types";
 import Link from "next/link";
 import FavoriteButton from "@/components/shared/favorite-button";
 
-/* ─── Room Type Labels ─── */
+/* ─── Room Type Icons & Labels ─── */
+const roomTypeIcons: Record<string, string> = {
+  SINGLE_ROOM: "/icons-for-rooms/room-icons-1/Single_room.png",
+  DOUBLE_ROOM: "/icons-for-rooms/room-icons-1/Double_room.png",
+  SHARED_ROOM: "/icons-for-rooms/room-icons-1/Shared_room.png",
+  FLAT: "/icons-for-rooms/room-icons-1/Flat.png",
+  STUDIO: "/icons-for-rooms/room-icons-1/Studio.png",
+  PG: "/icons-for-rooms/room-icons-1/PG_Hostel.png",
+};
+
 const roomTypeLabels: Record<RoomType, string> = {
   SINGLE_ROOM: "Single Room",
   DOUBLE_ROOM: "Double Room",
@@ -90,7 +99,11 @@ export default function UnitListingCard({ unit }: UnitListingCardProps) {
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center">
-            <Home className="h-8 w-8 text-muted-foreground/30" />
+            <img
+              src={roomTypeIcons[unit.type] || roomTypeIcons.SINGLE_ROOM}
+              alt=""
+              className="h-8 w-8 object-contain opacity-30"
+            />
           </div>
         )}
         
@@ -123,7 +136,11 @@ export default function UnitListingCard({ unit }: UnitListingCardProps) {
         {/* Amenities Row */}
         <div className="flex items-center gap-3 text-sm text-foreground">
           <div className="flex items-center gap-1.5 font-medium">
-             <Home className="h-4 w-4 text-primary" />
+             <img
+               src={roomTypeIcons[unit.type] || roomTypeIcons.SINGLE_ROOM}
+               alt=""
+               className="h-4 w-4 object-contain rounded-sm"
+             />
              {roomTypeLabels[unit.type]}
           </div>
           {unit.attachedBath && (

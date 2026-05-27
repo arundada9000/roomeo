@@ -8,7 +8,7 @@ import { approveUnit, rejectUnit, deleteUnit } from "../actions";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { Button } from "@/components/ui/button";
 
-function _ListingsActions({
+function ListingsActions({
   unitId,
   status,
 }: {

@@ -12,16 +12,19 @@ export default function FavoriteButton({ unit, className }: { unit: UnitCard, cl
   const { data: session } = authClient.useSession();
 
   useEffect(() => {
-    setMounted(true);
-    const saved = localStorage.getItem("roomeo_favorites");
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-        if (parsed.find((u: any) => u.id === unit.id)) {
-          setIsSaved(true);
-        }
-      } catch {}
-    }
+    const timer = setTimeout(() => {
+      setMounted(true);
+      const saved = localStorage.getItem("roomeo_favorites");
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          if ((parsed as { id: string }[]).find((u) => u.id === unit.id)) {
+            setIsSaved(true);
+          }
+        } catch {}
+      }
+    }, 0);
+    return () => clearTimeout(timer);
   }, [unit.id]);
 
   const toggleFavorite = (e: React.MouseEvent) => {
@@ -47,7 +50,7 @@ export default function FavoriteButton({ unit, className }: { unit: UnitCard, cl
     }
 
     if (isSaved) {
-      parsed = parsed.filter((u: any) => u.id !== unit.id);
+      parsed = parsed.filter((u: { id: string }) => u.id !== unit.id);
       setIsSaved(false);
     } else {
       parsed.push(unit);

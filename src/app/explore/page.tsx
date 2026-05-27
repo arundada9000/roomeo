@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import ExplorePageContent from "./explore-content";
 import { getExploreListings } from "./actions";
+import type { UnitCard } from "@/types";
 
 export const metadata: Metadata = {
   title: "Explore Rooms & Flats",
@@ -16,7 +17,7 @@ export default async function ExplorePage(props: { searchParams: Promise<Record<
 
   return (
     <ExplorePageContent
-      initialListings={initialListings as any}
+      initialListings={initialListings as unknown as UnitCard[]}
       selectedUnitId={selectedId}
     />
   );

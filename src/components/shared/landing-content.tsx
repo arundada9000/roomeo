@@ -4,19 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
-  MapPin,
   Search,
   Shield,
   ArrowRight,
   Building2,
   Star,
   CheckCircle2,
-  Sparkles,
   Zap,
-  SlidersHorizontal,
-  Users,
   Wallet,
-  PhoneCall,
   Flame,
   Heart
 } from "lucide-react";
@@ -308,7 +303,7 @@ export default function LandingContent() {
               Designed for a better living experience
             </h2>
             <p className="text-lg text-muted-foreground">
-              We've completely reimagined how you find and rent spaces.
+              We&apos;ve completely reimagined how you find and rent spaces.
             </p>
           </div>
 

@@ -8,6 +8,26 @@ import { Badge } from "@/components/ui/badge";
 import { FadeIn, StaggerChildren, StaggerItem } from "@/components/page-transition";
 import { PageHeader, pageHeaderPresets } from "@/components/admin/page-header";
 
+function computeWeekCounts(favTimeline: { date: string; count: number }[]) {
+  const now = Date.now();
+  const weekAgo = now - 7 * 24 * 60 * 60 * 1000;
+  const twoWeeksAgo = now - 14 * 24 * 60 * 60 * 1000;
+
+  const recent7 = favTimeline.filter((d) => {
+    const dt = new Date(d.date).getTime();
+    return dt >= weekAgo;
+  }).reduce((sum, d) => sum + d.count, 0);
+
+  const prior7 = favTimeline.filter((d) => {
+    const dt = new Date(d.date).getTime();
+    return dt >= twoWeeksAgo && dt < weekAgo;
+  }).reduce((sum, d) => sum + d.count, 0);
+
+  const trend = prior7 > 0 ? ((recent7 - prior7) / prior7 * 100).toFixed(0) : null;
+
+  return { recent7, prior7, trend };
+}
+
 export default async function AdminEngagementPage() {
   const [
     totalFavorites,
@@ -94,20 +114,7 @@ export default async function AdminEngagementPage() {
   const favRate = totalUsers > 0 ? (totalFavorites / totalUsers).toFixed(1) : "0";
 
   // Trend arrow
-  const recent7 = favTimeline.filter((d) => {
-    const dt = new Date(d.date);
-    const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
-    return dt >= weekAgo;
-  }).reduce((sum, d) => sum + d.count, 0);
-
-  const prior7 = favTimeline.filter((d) => {
-    const dt = new Date(d.date);
-    const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
-    const twoWeeksAgo = new Date(Date.now() - 14 * 24 * 60 * 60 * 1000);
-    return dt >= twoWeeksAgo && dt < weekAgo;
-  }).reduce((sum, d) => sum + d.count, 0);
-
-  const trend = prior7 > 0 ? ((recent7 - prior7) / prior7 * 100).toFixed(0) : null;
+  const { recent7, prior7, trend } = computeWeekCounts(favTimeline);
 
   return (
     <div className="space-y-8">
@@ -159,7 +166,7 @@ export default async function AdminEngagementPage() {
             <div className="flex items-center justify-between">
               <div className="space-y-0.5">
                 <p className="text-2xl font-extrabold text-violet-600 tracking-tight">{maxFav}</p>
-                <p className="text-xs text-violet-600/70 font-medium">Most Fav'd (1 listing)</p>
+                <p className="text-xs text-violet-600/70 font-medium">Most Fav&apos;d (1 listing)</p>
               </div>
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-500/10 text-violet-600">
                 <ArrowUp className="h-5 w-5" />
@@ -204,7 +211,7 @@ export default async function AdminEngagementPage() {
             {/* Mini sparkline */}
             {favTimeline.length > 0 && (
               <div className="mt-4 flex items-end gap-[2px] h-16">
-                {favTimeline.slice(-14).map((d, i) => {
+                {favTimeline.slice(-14).map((d) => {
                   const h = Math.max(4, (d.count / Math.max(...favTimeline.map((x) => x.count))) * 56);
                   return (
                     <div

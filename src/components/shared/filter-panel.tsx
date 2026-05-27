@@ -11,6 +11,15 @@ import {
 import { useMapStore } from "@/stores/map-store";
 import { RoomType } from "@/types";
 
+const roomTypeIcons: Record<string, string> = {
+  SINGLE_ROOM: "/icons-for-rooms/room-icons-1/Single_room.png",
+  DOUBLE_ROOM: "/icons-for-rooms/room-icons-1/Double_room.png",
+  SHARED_ROOM: "/icons-for-rooms/room-icons-1/Shared_room.png",
+  FLAT: "/icons-for-rooms/room-icons-1/Flat.png",
+  STUDIO: "/icons-for-rooms/room-icons-1/Studio.png",
+  PG: "/icons-for-rooms/room-icons-1/PG_Hostel.png",
+};
+
 const roomTypeOptions: { value: RoomType; label: string }[] = [
   { value: RoomType.SINGLE_ROOM, label: "Single Room" },
   { value: RoomType.DOUBLE_ROOM, label: "Double Room" },
@@ -195,12 +204,17 @@ export default function FilterPanel() {
                         <button
                           key={opt.value}
                           onClick={() => toggleRoomType(opt.value)}
-                          className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-all ${
+                          className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition-all ${
                             isActive
                               ? "border-primary bg-primary/10 text-primary"
                               : "border-border text-muted-foreground hover:border-border hover:text-foreground"
                           }`}
                         >
+                          <img
+                            src={roomTypeIcons[opt.value] || roomTypeIcons.SINGLE_ROOM}
+                            alt=""
+                            className="h-3.5 w-3.5 object-contain rounded-sm"
+                          />
                           {opt.label}
                         </button>
                       );
