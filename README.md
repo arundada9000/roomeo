@@ -6,162 +6,106 @@ Discover nearby rooms and flats with real-time availability, smart filters, and 
 
 ---
 
-## Prerequisites
+## Quick Start
 
-- **Node.js** 20+
-- **npm**
-- **PostgreSQL 16+** with **PostGIS** extension
+```bash
+npm install                # Install dependencies
+npx prisma db push         # Push database schema
+npm run dev                # Start dev server at http://localhost:3000
+```
+
+See [docs/development.md](./docs/development.md) for full setup.
 
 ---
 
-## Setup
+## Tech Stack
 
-### 1. Clone & install dependencies
-
-```bash
-git clone <repo-url> roomeo
-cd roomeo
-npm install
-```
-
-### 2. Start PostgreSQL with PostGIS
-
-**Option A — Docker (recommended)**
-
-```bash
-docker run --name roomeo-db \
-  -e POSTGRES_PASSWORD=postgres \
-  -e POSTGRES_DB=roomeo \
-  -p 5432:5432 \
-  -d postgis/postgis
-```
-
-**Option B — Manual install**
-
-1. Install [PostgreSQL 16](https://www.postgresql.org/download/)
-2. Install [PostGIS](https://download.osgeo.org/postgis/windows/) for your PostgreSQL version
-3. Create a database named `roomeo`
-4. Enable PostGIS:
-   ```sql
-   CREATE EXTENSION postgis;
-   ```
-
-### 3. Configure environment
-
-Copy or edit `.env`:
-
-```env
-DATABASE_URL="postgresql://postgres:postgres@localhost:5432/roomeo?schema=public"
-BETTER_AUTH_SECRET=<generate-a-random-string>
-BETTER_AUTH_URL=http://localhost:3000
-```
-
-Generate a secret key:
-
-```bash
-node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
-```
-
-### 4. Push database schema
-
-```bash
-npx prisma db push
-```
-
-This creates all tables (`User`, `Property`, `Unit`, `Media`, `Favorite`, `Review`, `Inquiry`) and enables the PostGIS extension.
-
----
-
-## Running
-
-### Development
-
-```bash
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000).
-
-### Production build
-
-```bash
-npm run build && npm start
-```
-
----
-
-## Project structure
-
-```
-src/
-  app/           # Next.js App Router pages & layouts
-  components/    # UI, shared, map, listing, form components
-  features/      # Feature modules (auth, listings, maps, search, etc.)
-  server/        # DB client, API routes, services
-  hooks/         # Custom React hooks
-  stores/        # Zustand stores
-  lib/           # Utilities (prisma client, auth, etc.)
-  types/         # TypeScript types
-prisma/
-  schema.prisma  # Database schema
-```
-
----
-
-## Tech stack
-
-| Layer | Technology |
-|-------|-----------|
-| Framework | Next.js 16 (App Router) |
-| Language | TypeScript (strict) |
-| Styling | TailwindCSS 4 |
-| UI Library | shadcn/ui + Base UI |
-| Database | PostgreSQL + PostGIS |
-| ORM | Prisma 7 |
-| Maps | Leaflet + React Leaflet |
-| Auth | Better Auth |
-| State | Zustand + TanStack Query |
-| Forms | React Hook Form + Zod |
-| Animations | Framer Motion |
-| Icons | Lucide |
-| Font | Inter + Geist |
+| Layer         | Technology                         |
+|---------------|------------------------------------|
+| Framework     | Next.js 16 (App Router)            |
+| Language      | TypeScript (strict)                |
+| Styling       | TailwindCSS 4                      |
+| UI Library    | shadcn/ui + Base UI                |
+| Database      | PostgreSQL 16+ / PostGIS           |
+| ORM           | Prisma 7                           |
+| Maps          | Leaflet + React Leaflet 5          |
+| Auth          | Better Auth 1.x                    |
+| State         | Zustand 5 + TanStack Query 5       |
+| Animations    | Framer Motion 12                   |
+| Icons         | Lucide React + Custom PNG icons    |
 
 ---
 
 ## Roles
 
-- **Admin** — manage users, landlords, listings; moderation & analytics
-- **Landlord** — create properties/units, upload media, manage availability
-- **User** — search nearby rooms on map, filter, save favorites, contact landlords
+| Role      | Capabilities                                                              |
+|-----------|---------------------------------------------------------------------------|
+| **Admin** | Manage users, landlords, listings; moderate content; view analytics       |
+| **Landlord** | Create properties/units, upload media, manage availability             |
+| **User**  | Browse map, filter rooms, save favorites, contact landlords               |
 
 ---
 
-## Local setup (this device — Windows)
-
-Quick-start for this machine:
+## Project Structure
 
 ```
-Location:    D:\Programming\nextjs\room finder\roomeo
-PostgreSQL:  C:\Program Files\PostgreSQL\16\ (running, password: postgres)
-Database:    roomeo (PostGIS enabled)
-Node:        v24.14.1
+roomeo/
+├── prisma/                   # Database schema & seed
+│   ├── schema.prisma         # Models: User, Property, Unit, Media, etc.
+│   └── seed.ts               # Seed script with faker data
+├── public/
+│   ├── icons-for-rooms/      # Room-type PNG icons (3 variant sets)
+│   ├── rooms/                # Sample room photos
+│   └── uploads/              # User uploads
+├── src/
+│   ├── app/                  # Next.js App Router pages
+│   │   ├── explore/          # Main map page (Leaflet + bottom sheet)
+│   │   ├── rooms/            # Grid listing page with filters
+│   │   ├── units/[id]/       # Unit detail page
+│   │   ├── hub/              # Landing/dashboard page
+│   │   ├── admin/            # Admin dashboard & management
+│   │   ├── landlord/         # Landlord dashboard & property mgmt
+│   │   └── ...
+│   ├── components/
+│   │   ├── map/              # Map components (explore-map, filter-modal)
+│   │   ├── listing/          # Unit listing card
+│   │   ├── shared/           # Navbar, Footer, FilterPanel, etc.
+│   │   ├── admin/            # Admin-specific components
+│   │   └── ui/               # shadcn/ui primitives
+│   ├── stores/               # Zustand state stores
+│   │   └── map-store.ts      # Map state, filters, view mode
+│   ├── types/                # Shared TypeScript types & enums
+│   └── lib/                  # Utilities (prisma, auth, etc.)
+├── docs/                     # Documentation
+│   ├── architecture.md       # System architecture
+│   ├── components.md         # Component documentation
+│   ├── data-model.md         # Database schema
+│   ├── development.md        # Development setup guide
+│   ├── filters.md            # Filtering system
+│   ├── icons.md              # Room-type icons
+│   ├── routes.md             # Route structure
+│   └── seed-users.md         # Seed user credentials
+└── design/                   # UI design references
 ```
 
-```powershell
-# 1. Start PostgreSQL (if not running)
-& "C:\Program Files\PostgreSQL\16\bin\pg_ctl.exe" start -D "C:\Program Files\PostgreSQL\16\data"
+---
 
-# 2. Verify PostGIS
-& "C:\Program Files\PostgreSQL\16\bin\psql.exe" -U postgres -d roomeo -c "SELECT PostGIS_Version();"
+## Key Pages
 
-# 3. Push schema
-cd "D:\Programming\nextjs\room finder\roomeo"
-npx prisma db push
+| Route               | Description                             |
+|---------------------|-----------------------------------------|
+| `/`                 | Landing page (welcome / hero)           |
+| `/explore`          | Map-first exploration with bottom sheet |
+| `/rooms`            | Grid listing with sidebar filters       |
+| `/units/[id]`       | Unit detail with gallery & contact      |
+| `/hub`              | Dashboard (recent listings, stats)      |
+| `/admin`            | Admin dashboard                         |
+| `/landlord`         | Landlord dashboard & property mgmt      |
+| `/profile`          | User profile & settings                 |
+| `/favorites`        | Saved favorites                         |
 
-# 4. Start dev server
-npm run dev
-```
+---
 
-Open `http://localhost:3000`.
+## License
 
-> Don't commit `.env` — it contains secrets. The `pg/` and `pgdata/` folders are already gitignored.
+Private — all rights reserved.
