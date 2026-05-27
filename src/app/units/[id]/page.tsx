@@ -20,7 +20,7 @@ export default async function UnitDetailPage({ params }: { params: Promise<{ id:
     },
   });
 
-  if (!unit) {
+  if (!unit || unit.status !== "APPROVED") {
     notFound();
   }
 
@@ -216,7 +216,14 @@ export default async function UnitDetailPage({ params }: { params: Promise<{ id:
                 Contact Landlord
               </button>
 
-              <a 
+              <Link
+                href={`/explore?selected=${unit.id}`}
+                className="w-full flex items-center justify-center gap-2 rounded-2xl border-2 border-border/60 py-3.5 text-base font-bold text-foreground transition-all hover:bg-secondary active:scale-95"
+              >
+                <Navigation className="h-5 w-5" />
+                View on Map
+              </Link>
+              <a
                 href={`https://www.google.com/maps/dir/?api=1&destination=${unit.property.lat},${unit.property.lng}`}
                 target="_blank"
                 rel="noopener noreferrer"
