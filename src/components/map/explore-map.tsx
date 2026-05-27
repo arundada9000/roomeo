@@ -3,10 +3,23 @@
 import { useEffect, useRef, useCallback } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMap, useMapEvents } from "react-leaflet";
 import L from "leaflet";
-import { Navigation } from "lucide-react";
+import Link from "next/link";
+import {
+  Navigation, MapPin, Home, Bath, Wifi, Car,
+  ExternalLink, Sparkles, ChevronRight,
+} from "lucide-react";
 import "leaflet/dist/leaflet.css";
 import { useMapStore } from "@/stores/map-store";
-import type { UnitCard } from "@/types";
+import type { UnitCard, RoomType } from "@/types";
+
+const roomTypeLabels: Record<RoomType | string, string> = {
+  SINGLE_ROOM: "Single Room",
+  DOUBLE_ROOM: "Double Room",
+  SHARED_ROOM: "Shared Room",
+  FLAT: "Flat",
+  STUDIO: "Studio",
+  PG: "PG",
+};
 
 const createMarkerIcon = (isSelected: boolean, priceStr: string) =>
   L.divIcon({
@@ -15,7 +28,8 @@ const createMarkerIcon = (isSelected: boolean, priceStr: string) =>
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 6px 12px;
+      gap: 4px;
+      padding: 6px 14px;
       border-radius: 999px;
       background: ${isSelected ? "#004ac6" : "#ffffff"};
       color: ${isSelected ? "#ffffff" : "#004ac6"};
@@ -26,10 +40,10 @@ const createMarkerIcon = (isSelected: boolean, priceStr: string) =>
       transition: all 0.2s ease;
       transform: scale(${isSelected ? 1.05 : 1});
       font-family: var(--font-sans);
-    ">${priceStr}</div>`,
-    iconSize: [undefined as any, undefined as any], // auto size
-    iconAnchor: [30, 16], // approximate center bottom
-    popupAnchor: [0, -20],
+    "><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>${priceStr}</div>`,
+    iconSize: [undefined as any, undefined as any],
+    iconAnchor: [30, 16],
+    popupAnchor: [0, -24],
   });
 
 const userLocationIcon = L.divIcon({
@@ -79,6 +93,107 @@ function RecenterMap({ center, zoom }: { center: [number, number]; zoom: number 
     map.setView(center, zoom, { animate: true });
   }, [center, zoom, map]);
   return null;
+}
+
+/* ─── Popup Card Component ─── */
+interface PopupCardProps {
+  unit: UnitCard;
+  formatPrice: (price: number, currency: string) => string;
+}
+
+function PopupCard({ unit, formatPrice }: PopupCardProps) {
+  const amenities: { icon: React.ElementType; label: string }[] = [];
+  if (unit.furnished) amenities.push({ icon: Home, label: "Furnished" });
+  if (unit.attachedBath) amenities.push({ icon: Bath, label: "Bath" });
+  if (unit.wifi) amenities.push({ icon: Wifi, label: "WiFi" });
+  if (unit.parking) amenities.push({ icon: Car, label: "Parking" });
+
+  const destLat = unit.property.lat;
+  const destLng = unit.property.lng;
+  const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${destLat},${destLng}`;
+
+  return (
+    <div className="relative overflow-hidden" style={{ margin: -2 }}>
+      {/* Image */}
+      <div className="relative h-28 w-full overflow-hidden bg-surface-dim rounded-t-xl">
+        {unit.media && unit.media.length > 0 ? (
+          <img
+            src={unit.media[0].url}
+            alt=""
+            className="h-full w-full object-cover"
+          />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-primary/5 to-primary/10">
+            <Home className="h-8 w-8 text-primary/30" />
+          </div>
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+
+        {/* Type Badge + Price Overlay */}
+        <div className="absolute bottom-2 left-3 right-3 flex items-end justify-between">
+          <span className="rounded-full bg-white/90 backdrop-blur-sm px-2.5 py-0.5 text-[11px] font-bold text-foreground shadow-sm">
+            {roomTypeLabels[unit.type] || unit.type.replace(/_/g, " ")}
+          </span>
+          <span className="text-base font-extrabold text-white drop-shadow-md">
+            {formatPrice(unit.price, unit.currency)}<span className="text-xs font-medium text-white/80">/mo</span>
+          </span>
+        </div>
+
+        {/* Available Badge */}
+        {unit.isAvailable && (
+          <div className="absolute top-2 right-2 rounded-full bg-emerald-500 px-2 py-0.5 text-[10px] font-bold text-white shadow-sm">
+            Available
+          </div>
+        )}
+      </div>
+
+      {/* Content */}
+      <div className="px-3 pt-2.5 pb-3">
+        {/* Title + Location */}
+        <h3 className="text-sm font-bold text-foreground leading-snug line-clamp-1">
+          {unit.title}
+        </h3>
+        <p className="flex items-center gap-1 text-[11px] text-muted-foreground/70 mt-0.5 line-clamp-1">
+          <MapPin className="h-3 w-3 shrink-0 text-primary/60" />
+          {unit.property.address}, {unit.property.city}
+        </p>
+
+        {/* Amenity Pills */}
+        {amenities.length > 0 && (
+          <div className="flex flex-wrap gap-1 mt-2">
+            {amenities.map((a) => (
+              <span
+                key={a.label}
+                className="inline-flex items-center gap-1 rounded-md bg-secondary/60 px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground"
+              >
+                <a.icon className="h-3 w-3" />
+                {a.label}
+              </span>
+            ))}
+          </div>
+        )}
+
+        {/* Action Buttons */}
+        <div className="flex items-center gap-2 mt-3">
+          <Link
+            href={`/units/${unit.id}`}
+            className="flex flex-1 items-center justify-center gap-1 rounded-lg bg-primary py-2 text-[11px] font-bold text-primary-foreground shadow-sm transition-all hover:bg-primary/90 active:scale-[0.97]"
+          >
+            View Details <ChevronRight className="h-3 w-3" />
+          </Link>
+          <a
+            href={googleMapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-1 rounded-lg border border-border/60 bg-background px-3 py-2 text-[11px] font-bold text-foreground transition-all hover:bg-secondary active:scale-[0.97]"
+          >
+            <ExternalLink className="h-3 w-3" />
+            Directions
+          </a>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 /* ─── Main Map Component ─── */
@@ -174,18 +289,13 @@ export default function ExploreMap({ listings }: ExploreMapProps) {
             click: () => setSelectedUnitId(unit.id),
           }}
         >
-          <Popup>
-            <div className="min-w-[200px] p-1">
-              <p className="text-sm font-semibold text-foreground">
-                {unit.title}
-              </p>
-              <p className="text-xs text-muted-foreground mt-0.5">
-                {unit.property.address}
-              </p>
-              <p className="text-sm font-bold text-primary mt-1">
-                {formatPrice(unit.price, unit.currency)}/mo
-              </p>
-            </div>
+          <Popup
+            closeButton={false}
+            className="roomeo-map-popup"
+            maxWidth={320}
+            minWidth={280}
+          >
+            <PopupCard unit={unit} formatPrice={formatPrice} />
           </Popup>
         </Marker>
       ))}
