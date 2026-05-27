@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import ExplorePageContent from "./explore-content";
 import { getExploreListings } from "./actions";
-import prisma from "@/lib/prisma";
 
 export const metadata: Metadata = {
   title: "Explore Rooms & Flats",
@@ -13,21 +12,12 @@ export default async function ExplorePage(props: { searchParams: Promise<Record<
   const searchParams = await props.searchParams;
   const selectedId = typeof searchParams.selected === "string" ? searchParams.selected : null;
 
-  const [initialListings, selectedUnit] = await Promise.all([
-    getExploreListings(),
-    selectedId
-      ? prisma.unit.findUnique({
-          where: { id: selectedId },
-          select: { id: true, property: { select: { lat: true, lng: true } } },
-        })
-      : null,
-  ]);
+  const initialListings = await getExploreListings();
 
   return (
     <ExplorePageContent
       initialListings={initialListings as any}
       selectedUnitId={selectedId}
-      selectedUnitCenter={selectedUnit ? { lat: selectedUnit.property.lat, lng: selectedUnit.property.lng } : null}
     />
   );
 }

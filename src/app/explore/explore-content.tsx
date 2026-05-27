@@ -33,10 +33,9 @@ const filterPills = [
 interface ExplorePageContentProps {
   initialListings: UnitCard[];
   selectedUnitId?: string | null;
-  selectedUnitCenter?: { lat: number; lng: number } | null;
 }
 
-export default function ExplorePageContent({ initialListings, selectedUnitId: initialSelectedId, selectedUnitCenter }: ExplorePageContentProps) {
+export default function ExplorePageContent({ initialListings, selectedUnitId: initialSelectedId }: ExplorePageContentProps) {
   const setCenter = useMapStore((s) => s.setCenter);
   const setSelectedUnitId = useMapStore((s) => s.setSelectedUnitId);
   const userLocation = useMapStore((s) => s.userLocation);
@@ -48,7 +47,7 @@ export default function ExplorePageContent({ initialListings, selectedUnitId: in
   const [searchQuery, setSearchQuery] = useState("");
   const [listings, setListings] = useState<UnitCard[]>(initialListings);
   const [isPending, startTransition] = useTransition();
-  const [listMode, setListMode] = useState<"closed" | "peek" | "full">(initialSelectedId ? "peek" : "peek");
+  const [listMode, setListMode] = useState<"closed" | "peek" | "full">("peek");
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const [activeInlineFilter, setActiveInlineFilter] = useState<string | null>(null);
 
@@ -56,11 +55,14 @@ export default function ExplorePageContent({ initialListings, selectedUnitId: in
 
   // Handle initial selected unit from URL query param
   useEffect(() => {
-    if (initialSelectedId && selectedUnitCenter) {
+    if (initialSelectedId) {
       setSelectedUnitId(initialSelectedId);
-      setCenter(selectedUnitCenter);
+      const unit = listings.find((u) => u.id === initialSelectedId);
+      if (unit) {
+        setCenter({ lat: unit.property.lat, lng: unit.property.lng });
+      }
     }
-  }, [initialSelectedId, selectedUnitCenter, setSelectedUnitId, setCenter]);
+  }, []); // only run on mount
 
   // Constants for inline filters
   const roomTypes = [

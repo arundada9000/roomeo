@@ -75,6 +75,7 @@ function MapEventHandler() {
 function RecenterMap({ center, zoom }: { center: [number, number]; zoom: number }) {
   const map = useMap();
   useEffect(() => {
+    if (isNaN(center[0]) || isNaN(center[1])) return;
     map.setView(center, zoom, { animate: true });
   }, [center, zoom, map]);
   return null;
@@ -147,6 +148,9 @@ export default function ExploreMap({ listings }: ExploreMapProps) {
       />
 
       <MapEventHandler />
+
+      {/* Recenter when store center changes */}
+      <RecenterMap center={[center.lat, center.lng]} zoom={zoom} />
 
       {/* User Location Marker */}
       {userLocation && (
