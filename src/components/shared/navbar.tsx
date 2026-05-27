@@ -8,6 +8,7 @@ import { authClient } from "@/lib/auth-client";
 
 const navLinks = [
   { label: "Explore", href: "/explore" },
+  { label: "Hub", href: "/hub" },
   { label: "List Property", href: "/landlord" },
 ];
 
@@ -128,10 +129,17 @@ export default function Navbar() {
                 </div>
 
                 <div className="flex flex-col gap-1">
-                  <Link href="/landlord" className="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-semibold text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground">
-                    <Building className="h-4 w-4 text-primary" />
-                    Landlord Dashboard
-                  </Link>
+                  {(session.user as { role?: string }).role === "ADMIN" ? (
+                    <Link href="/admin" className="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-semibold text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground">
+                      <Building className="h-4 w-4 text-primary" />
+                      Admin Dashboard
+                    </Link>
+                  ) : (
+                    <Link href="/landlord" className="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-semibold text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground">
+                      <Building className="h-4 w-4 text-primary" />
+                      Landlord Dashboard
+                    </Link>
+                  )}
                   <Link href="/profile" className="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-semibold text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground">
                     <Settings className="h-4 w-4" />
                     Account Settings

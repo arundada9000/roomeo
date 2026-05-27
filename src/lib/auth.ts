@@ -9,5 +9,14 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
   },
-  // Add other providers (Google, etc.) here later if needed
+  user: {
+    additionalFields: {
+      role: {
+        type: "string",
+        required: false,
+        defaultValue: "USER",
+        input: false,
+      },
+    },
+  },
 });
