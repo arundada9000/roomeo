@@ -30,8 +30,15 @@ const filterPills = [
   { id: "rules", label: "Rules", icon: ChevronDown },
 ];
 
-export default function ExplorePageContent({ initialListings }: { initialListings: UnitCard[] }) {
+interface ExplorePageContentProps {
+  initialListings: UnitCard[];
+  selectedUnitId?: string | null;
+  selectedUnitCenter?: { lat: number; lng: number } | null;
+}
+
+export default function ExplorePageContent({ initialListings, selectedUnitId: initialSelectedId, selectedUnitCenter }: ExplorePageContentProps) {
   const setCenter = useMapStore((s) => s.setCenter);
+  const setSelectedUnitId = useMapStore((s) => s.setSelectedUnitId);
   const userLocation = useMapStore((s) => s.userLocation);
   const filters = useMapStore((s) => s.filters);
   const bounds = useMapStore((s) => s.bounds);
@@ -41,11 +48,19 @@ export default function ExplorePageContent({ initialListings }: { initialListing
   const [searchQuery, setSearchQuery] = useState("");
   const [listings, setListings] = useState<UnitCard[]>(initialListings);
   const [isPending, startTransition] = useTransition();
-  const [listMode, setListMode] = useState<"closed" | "peek" | "full">("peek");
+  const [listMode, setListMode] = useState<"closed" | "peek" | "full">(initialSelectedId ? "peek" : "peek");
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const [activeInlineFilter, setActiveInlineFilter] = useState<string | null>(null);
 
   const setFiltersStore = useMapStore((s) => s.setFilters);
+
+  // Handle initial selected unit from URL query param
+  useEffect(() => {
+    if (initialSelectedId && selectedUnitCenter) {
+      setSelectedUnitId(initialSelectedId);
+      setCenter(selectedUnitCenter);
+    }
+  }, [initialSelectedId, selectedUnitCenter, setSelectedUnitId, setCenter]);
 
   // Constants for inline filters
   const roomTypes = [

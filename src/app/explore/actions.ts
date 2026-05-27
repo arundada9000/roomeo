@@ -35,7 +35,7 @@ export interface ExploreFilters {
 
 export async function getExploreListings(filters: ExploreFilters = {}) {
   try {
-    const where: any = {};
+    const where: any = { status: "APPROVED" };
 
     if (filters.priceMin || filters.priceMax) {
       where.price = {};
