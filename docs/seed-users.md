@@ -1,5 +1,10 @@
 # Seed Users
 
+**Repository:** [https://github.com/arundada9000/roomeo](https://github.com/arundada9000/roomeo)  
+**Hosted at:** [https://roomeo.vercel.app](https://roomeo.vercel.app)
+
+---
+
 All users share password: `88888888`
 
 ## Admin

@@ -1,7 +1,13 @@
+import type { Metadata } from "next";
 import prisma from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Dashboard",
+  description: "Your personal Roomeo dashboard — recent listings, saved favorites, and account overview.",
+};
 import {
   Home, MapPin, Building2, TrendingUp, Sparkles,
   ArrowRight, Heart, Bell,

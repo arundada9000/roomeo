@@ -1,5 +1,10 @@
 # Architecture
 
+**Repository:** [https://github.com/arundada9000/roomeo](https://github.com/arundada9000/roomeo)  
+**Hosted at:** [https://roomeo.vercel.app](https://roomeo.vercel.app)
+
+---
+
 ## Overview
 
 Roomeo is a Next.js 16 App Router application with a PostgreSQL/PostGIS backend. The frontend uses React 19 with Leaflet for map rendering, Zustand for state management, and TailwindCSS 4 for styling.

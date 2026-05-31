@@ -1,5 +1,10 @@
 # Room-Type Icons
 
+**Repository:** [https://github.com/arundada9000/roomeo](https://github.com/arundada9000/roomeo)  
+**Hosted at:** [https://roomeo.vercel.app](https://roomeo.vercel.app)
+
+---
+
 ## Overview
 
 Room-type icons are small PNG images displayed on map markers, listing cards, detail pages, filter buttons, and the hub page. They provide a quick visual identifier for the type of room/unit.

@@ -1,5 +1,10 @@
 # Development Guide
 
+**Repository:** [https://github.com/arundada9000/roomeo](https://github.com/arundada9000/roomeo)  
+**Hosted at:** [https://roomeo.vercel.app](https://roomeo.vercel.app)
+
+---
+
 ## Prerequisites
 
 - **Node.js** 20+ (project uses v24.14.1)

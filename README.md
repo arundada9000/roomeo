@@ -2,7 +2,16 @@
 
 > Find your space nearby.
 
+[![GitHub](https://img.shields.io/badge/GitHub-arundada9000/roomeo-181717?style=flat-square&logo=github)](https://github.com/arundada9000/roomeo)
+[![Vercel](https://img.shields.io/badge/Live-roomeo.vercel.app-000000?style=flat-square&logo=vercel)](https://roomeo.vercel.app)
+[![License](https://img.shields.io/badge/License-MIT-6d28d9?style=flat-square)](./LICENSE)
+
 Discover nearby rooms and flats with real-time availability, smart filters, and map-first exploration.
+
+---
+
+**Repository:** [https://github.com/arundada9000/roomeo](https://github.com/arundada9000/roomeo)  
+**Hosted at:** [https://roomeo.vercel.app](https://roomeo.vercel.app)
 
 ---
 
@@ -137,6 +146,11 @@ roomeo/
 ## License
 
 MIT — see [LICENSE](./LICENSE).
+
+---
+
+**Repository:** [https://github.com/arundada9000/roomeo](https://github.com/arundada9000/roomeo)  
+**Hosted at:** [https://roomeo.vercel.app](https://roomeo.vercel.app)
 
 ---
 

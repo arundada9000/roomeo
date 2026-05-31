@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { GeistMono } from "geist/font/mono";
 import { Toaster } from "sonner";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import BottomNav from "@/components/shared/bottom-nav";
 import ServiceWorkerRegistration from "@/components/shared/service-worker-registration";
 import ScrollToTopButton from "@/components/shared/scroll-to-top-button";
@@ -29,7 +31,7 @@ export const metadata: Metadata = {
     "map search",
     "roomeo",
   ],
-  authors: [{ name: "Roomeo" }],
+  authors: [{ name: "Arun Neupane", url: "https://github.com/arundada9000" }],
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
   openGraph: {
     title: "Roomeo - Find Your Space Nearby",
@@ -106,18 +108,49 @@ export const viewport: Viewport = {
 
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "WebApplication",
-  name: "Roomeo",
-  url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
-  description:
-    "Discover nearby rooms and flats with real-time availability, smart filters, and map-first exploration.",
-  applicationCategory: "RealEstateApplication",
-  operatingSystem: "Web",
-  offers: {
-    "@type": "Offer",
-    price: "0",
-    priceCurrency: "USD",
-  },
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      name: "Roomeo",
+      url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
+      description:
+        "Discover nearby rooms and flats with real-time availability, smart filters, and map-first exploration.",
+      applicationCategory: "RealEstateApplication",
+      operatingSystem: "Web",
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
+      },
+      author: {
+        "@type": "Person",
+        name: "Arun Neupane",
+        url: "https://github.com/arundada9000",
+      },
+    },
+    {
+      "@type": "Organization",
+      name: "Roomeo",
+      url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
+      logo: `${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}/icons/icon-192x192.png`,
+      sameAs: [
+        "https://github.com/arundada9000/roomeo",
+      ],
+    },
+    {
+      "@type": "WebSite",
+      name: "Roomeo",
+      url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
+      potentialAction: {
+        "@type": "SearchAction",
+        target: {
+          "@type": "EntryPoint",
+          urlTemplate: `${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}/rooms?query={search_term_string}`,
+        },
+        "query-input": "required name=search_term_string",
+      },
+    },
+  ],
 };
 
 export default function RootLayout({
@@ -142,6 +175,8 @@ export default function RootLayout({
         <BottomNav />
         <ScrollToTopButton />
         <ServiceWorkerRegistration />
+        <Analytics />
+        <SpeedInsights />
         <Toaster
           position="bottom-right"
           richColors
