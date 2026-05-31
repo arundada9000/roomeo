@@ -52,13 +52,26 @@
 
 ## Other Pages
 
-| Route          | Description         |
-|----------------|---------------------|
-| `/about`       | About page          |
-| `/contact`     | Contact form        |
-| `/blog`        | Blog listing        |
-| `/blog/[slug]` | Blog post           |
-| `/careers`     | Careers page        |
-| `/terms`       | Terms of service    |
-| `/sitemap`     | XML sitemap         |
-| `/welcome`     | Welcome/onboarding  |
+| Route              | Description             |
+|--------------------|-------------------------|
+| `/welcome`         | Onboarding splash       |
+| `/about`           | About page              |
+| `/contact`         | Contact form            |
+| `/blog`            | Blog listing            |
+| `/blog/[slug]`     | Blog post               |
+| `/pricing`         | Pricing plans           |
+| `/careers`         | Careers page            |
+| `/terms`           | Terms of service        |
+| `/privacy`         | Privacy policy          |
+| `/cookies`         | Cookie policy           |
+| `/offline`         | Offline fallback page   |
+
+## Public API Routes
+
+| Route              | Description             |
+|--------------------|-------------------------|
+| `/api/auth/*`      | Better Auth endpoints   |
+| `/api/upload`      | File upload             |
+| `/sitemap`         | XML sitemap             |
+| `/robots`          | robots.txt              |
+| `/manifest`        | PWA manifest            |

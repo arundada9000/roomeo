@@ -55,6 +55,9 @@ next-env.d.ts
 # ─── Generated ───
 /src/generated/prisma
 
+# ─── Local device instructions ───
+/how-to-run.md
+
 # ─── OS files ───
 Thumbs.db
 ehthumbs.db

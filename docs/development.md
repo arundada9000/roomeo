@@ -10,10 +10,17 @@
 
 ## Local Setup (Windows)
 
+See [how-to-run.md](../how-to-run.md) for device-specific quick-start instructions.
+
 ### 1. Start PostgreSQL
 
 ```powershell
 & "C:\Program Files\PostgreSQL\16\bin\pg_ctl.exe" start -D "C:\Program Files\PostgreSQL\16\data"
+```
+
+Or via service:
+```powershell
+Start-Service postgresql-x64-16
 ```
 
 Verify PostGIS:
@@ -113,6 +120,14 @@ npx prisma db pull          # Pull schema from database
 ### Icons
 - **Lucide React** for UI icons (search, navigation, amenities)
 - **Custom PNG icons** for room-type visuals (map markers, cards, filters)
+
+---
+
+## Author
+
+Built by **Arun Neupane** ([@arundada9000](https://github.com/arundada9000)).  
+CTO @ Sajilo Digital & Vice Secretary @ Code for Change Rupandehi.  
+Portfolio: [arunneupane.netlify.app](https://arunneupane.netlify.app)
 
 ---
 

@@ -8,6 +8,8 @@ All users share password: `88888888`
 |------|-------|------|
 | Arun Neupane | arunneupane0000@gmail.com | ADMIN |
 
+> Built by **Arun Neupane** ([@arundada9000](https://github.com/arundada9000))
+
 ## Landlords
 
 | Name | Email | Role |
