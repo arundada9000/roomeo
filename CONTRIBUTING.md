@@ -43,4 +43,4 @@ Use clear, concise messages describing what and why.
 
 ## License
 
-MIT — see [LICENSE](./LICENSE).
+Custom Non-Commercial Educational License - see [LICENSE](./LICENSE). By contributing, you agree that your contributions will be licensed under the same terms. Commercial use requires explicit permission from the author.
