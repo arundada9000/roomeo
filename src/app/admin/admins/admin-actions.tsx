@@ -8,7 +8,7 @@ import { updateUserRole } from "../actions";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { Button } from "@/components/ui/button";
 
-function AdminActions({
+function _AdminActions({
   adminId,
   adminName,
 }: {

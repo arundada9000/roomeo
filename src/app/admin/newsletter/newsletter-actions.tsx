@@ -8,7 +8,7 @@ import { unsubscribeNewsletter, deleteNewsletterSubscription } from "@/app/actio
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { Button } from "@/components/ui/button";
 
-function NewsletterActions({
+function _NewsletterActions({
   id,
   email,
   subscribed,
